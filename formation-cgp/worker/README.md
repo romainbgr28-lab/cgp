@@ -61,7 +61,7 @@ Si vous recevez une erreur mentionnant `MISTRAL_API_KEY`, reprenez l'étape 3.
 
 ### 5. Brancher le front
 
-Dans `formation-cgp.jsx`, remplacez la constante en haut du fichier :
+Dans `src/App.jsx`, remplacez la constante en haut du fichier :
 
 ```js
 const WORKER_URL_PAR_DEFAUT = "https://formation-cgp-proxy.<votre-sous-domaine>.workers.dev";

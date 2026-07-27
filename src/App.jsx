@@ -194,17 +194,19 @@ function sm2Update(card, quality) {
 // progress -> { [themeId]: { coursLus, qcmTotal, qcmOk, openTotal, openOk, situations } }
 // badges -> { [badgeId]: dateISO }
 // ============================================================
+const STORAGE_PREFIX = "formation-cgp:";
+
 async function stGet(key, fallback) {
   try {
-    const r = await window.storage.get(key);
-    return r ? JSON.parse(r.value) : fallback;
+    const raw = window.localStorage.getItem(STORAGE_PREFIX + key);
+    return raw ? JSON.parse(raw) : fallback;
   } catch {
     return fallback;
   }
 }
 async function stSet(key, value) {
   try {
-    await window.storage.set(key, JSON.stringify(value));
+    window.localStorage.setItem(STORAGE_PREFIX + key, JSON.stringify(value));
     return true;
   } catch {
     return false;
@@ -214,9 +216,10 @@ async function stSet(key, value) {
 async function loadAllReviews() {
   const out = {};
   try {
-    const res = await window.storage.list("review:");
-    const keys = res?.keys || [];
-    for (const k of keys) {
+    for (let i = 0; i < window.localStorage.length; i++) {
+      const fullKey = window.localStorage.key(i);
+      if (!fullKey || !fullKey.startsWith(STORAGE_PREFIX + "review:")) continue;
+      const k = fullKey.slice(STORAGE_PREFIX.length);
       const themeId = k.replace("review:", "");
       const data = await stGet(k, { cards: {} });
       out[themeId] = data.cards || {};
