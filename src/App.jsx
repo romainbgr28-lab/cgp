@@ -116,13 +116,9 @@ const STYLES_ANIMATIONS = `
 `;
 
 // ============================================================
-// API MISTRAL — via proxy Cloudflare Worker (contournement CORS)
-// La clé API vit uniquement côté Worker (secret MISTRAL_API_KEY),
-// le front n'envoie que { messages, model, temperature, jsonMode }.
-// ⬇ Remplacez par l'URL affichée par `npx wrangler deploy` (voir worker/README.md)
+// API MISTRAL — appel direct avec clé API
+// La clé est stockée dans localStorage, jamais transmise à un serveur tiers
 // ============================================================
-const WORKER_URL_PAR_DEFAUT = "https://formation-cgp-proxy.VOTRE-SOUS-DOMAINE.workers.dev";
-
 const SYSTEM_PROMPT = `Tu es un formateur expert en gestion de patrimoine (CGP) qui forme un conseiller AXA Banque & Assurance en France.
 Règles absolues, sans exception :
 1. RIGUEUR FISCALE : tu n'inventes JAMAIS un texte de loi, un numéro d'article ou un chiffre. Quand tu cites un barème, un taux, un plafond ou un abattement, tu ajoutes systématiquement la mention "(à vérifier sur bofip.gouv.fr)" car les valeurs évoluent chaque année.
@@ -130,22 +126,32 @@ Règles absolues, sans exception :
 3. TON : pédagogique, clair, orienté pratique de terrain bancaire. Vocabulaire professionnel mais accessible.
 4. LANGUE : français uniquement.`;
 
-async function callMistral(workerUrl, model, messages, { jsonMode = true, temperature = 0.4 } = {}) {
+async function callMistral(apiKey, model, messages, { jsonMode = true, temperature = 0.4 } = {}) {
+  if (!apiKey || !apiKey.trim()) throw new Error("Clé API Mistral manquante. Réinitialisez depuis l'écran de démarrage.");
   let res;
   try {
-    res = await fetch(workerUrl, {
+    res = await fetch("https://api.mistral.ai/v1/chat/completions", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ model, messages, temperature, jsonMode }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey.trim()}`,
+      },
+      body: JSON.stringify({
+        model,
+        messages,
+        temperature: typeof temperature === "number" ? temperature : 0.4,
+        max_tokens: 2000,
+        ...(jsonMode ? { response_format: { type: "json_object" } } : {}),
+      }),
     });
   } catch (e) {
-    throw new Error("Proxy Worker injoignable. Vérifiez l'URL du Worker (écran de démarrage) et votre connexion internet.");
+    throw new Error("Impossible de joindre l'API Mistral. Vérifiez votre connexion internet.");
   }
   if (!res.ok) {
-    if (res.status === 401) throw new Error("Clé API refusée par Mistral (erreur 401). La clé stockée côté Worker est invalide : refaites `wrangler secret put MISTRAL_API_KEY`.");
+    if (res.status === 401) throw new Error("Clé API Mistral invalide (erreur 401). Vérifiez votre clé et réessayez.");
     if (res.status === 429) throw new Error("Limite de débit atteinte (erreur 429). Attendez quelques secondes puis réessayez.");
     const t = await res.text().catch(() => "");
-    throw new Error(`Erreur ${res.status} renvoyée par le proxy. ${t.slice(0, 180)}`);
+    throw new Error(`Erreur ${res.status} de l'API Mistral. ${t.slice(0, 180)}`);
   }
   const data = await res.json();
   const content = data?.choices?.[0]?.message?.content;
@@ -426,10 +432,15 @@ function ToastBadge({ badge }) {
 // ÉCRAN 1 — DÉMARRAGE (la clé API vit côté Worker, plus rien à saisir)
 // ============================================================
 function EcranConfig({ onStart }) {
-  const [workerUrl, setWorkerUrl] = useState(WORKER_URL_PAR_DEFAUT);
+  const [apiKey, setApiKey] = useState(localStorage.getItem("formation-cgp:mistral-api-key") || "");
   const [modele, setModele] = useState(MODELES[0]);
-  const [avance, setAvance] = useState(false);
-  const urlValide = /^https?:\/\/.+/.test(workerUrl.trim());
+  const cleValide = apiKey.trim().length > 10;
+  const handleStart = () => {
+    if (cleValide) {
+      localStorage.setItem("formation-cgp:mistral-api-key", apiKey.trim());
+      onStart(apiKey.trim(), modele);
+    }
+  };
   return (
     <div className="mx-auto flex min-h-screen max-w-lg flex-col justify-center px-6 py-12">
       <div className="mb-8">
@@ -439,30 +450,25 @@ function EcranConfig({ onStart }) {
       </div>
       <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <div>
+          <label className="mb-1 block text-sm font-medium text-slate-700">Clé API Mistral</label>
+          <input
+            type="password"
+            value={apiKey}
+            onChange={(e) => setApiKey(e.target.value)}
+            placeholder="Colle ta clé API Mistral (https://console.mistral.ai/api-keys/)"
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-700 focus:outline-none"
+          />
+          <p className="mt-1 text-xs text-slate-500">Stockée uniquement dans ton navigateur. Jamais transmise à un serveur tiers.</p>
+        </div>
+        <div>
           <label className="mb-1 block text-sm font-medium text-slate-700">Modèle</label>
           <select value={modele} onChange={(e) => setModele(e.target.value)} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-blue-700 focus:outline-none">
             {MODELES.map((m) => <option key={m} value={m}>{m}</option>)}
           </select>
         </div>
-        <button onClick={() => setAvance((a) => !a)} className="text-xs font-medium text-slate-500 underline-offset-2 hover:text-slate-700 hover:underline">
-          {avance ? "Masquer les options avancées" : "Options avancées (URL du proxy)"}
-        </button>
-        {avance && (
-          <div className="anim-accordeon">
-            <label className="mb-1 block text-sm font-medium text-slate-700">URL du Worker (proxy Mistral)</label>
-            <input
-              type="url"
-              value={workerUrl}
-              onChange={(e) => setWorkerUrl(e.target.value)}
-              placeholder="https://formation-cgp-proxy.xxx.workers.dev"
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-700 focus:outline-none"
-            />
-            <p className="mt-1 text-xs text-slate-500">Permet de changer de proxy sans recompiler. La clé API Mistral est stockée côté Worker, jamais dans le navigateur.</p>
-          </div>
-        )}
         <button
-          onClick={() => urlValide && onStart(workerUrl.trim(), modele)}
-          disabled={!urlValide}
+          onClick={handleStart}
+          disabled={!cleValide}
           className="w-full rounded-lg bg-blue-900 py-3 font-semibold text-white transition hover:bg-blue-800 disabled:cursor-not-allowed disabled:bg-slate-300"
         >
           Démarrer
@@ -1359,7 +1365,7 @@ export default function App() {
   const api = useCallback(
     (messages, opts) => {
       if (!config) return Promise.reject(new Error("Configuration manquante."));
-      return callMistral(config.workerUrl, config.model, messages, opts);
+      return callMistral(config.apiKey, config.model, messages, opts);
     },
     [config]
   );
@@ -1399,7 +1405,7 @@ export default function App() {
       {/* key={ecran} force le re-montage et déclenche la transition d'entrée */}
       <div key={ecran} className="anim-ecran">
         {ecran === "config" && (
-          <EcranConfig onStart={(workerUrl, model) => { setConfig({ workerUrl, model }); setEcran("accueil"); }} />
+          <EcranConfig onStart={(apiKey, model) => { setConfig({ apiKey, model }); setEcran("accueil"); }} />
         )}
 
         {ecran === "accueil" && (
