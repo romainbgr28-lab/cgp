@@ -1,12 +1,15 @@
 // SECTION 4 — IMMOBILIER PATRIMONIAL
+// Valeurs chiffrées récurrentes : centralisées dans ../baremes-2026.js.
 // Valeurs : loi de finances 2025 (y compris réforme LMNP sur les plus-values).
+
+import { BAREMES as B, euro, pct } from "../baremes-2026.js";
 
 export default {
   id: "s4",
   titre: "Immobilier patrimonial",
   sousTitre: "Foncier, meublé, SCI, plus-values",
   emoji: "🧱",
-  couleur: { base: "#ff9600", dark: "#cc7a00", light: "#ffe6c2" },
+  couleur: { base: "#b45309", dark: "#8f4407", light: "#fdeed7" },
   unites: [
     {
       id: "s4u1",
@@ -16,13 +19,14 @@ export default {
           id: "s4u1l1",
           titre: "Les revenus fonciers",
           emoji: "🏠",
+          tag: "foncier",
           steps: [
             {
               t: "concept",
               emoji: "📮",
               titre: "Deux régimes au choix",
               points: [
-                "Micro-foncier : loyers ≤ 15 000 €/an → abattement forfaitaire de 30 %.",
+                `Micro-foncier : loyers ≤ ${euro(B.foncier.seuilMicro)}/an → abattement forfaitaire de ${pct(B.foncier.abattementMicro)}.`,
                 "Régime réel : déduction des charges réelles (intérêts d'emprunt, travaux, taxe foncière, assurance…).",
                 "Le réel gagne dès que les charges dépassent 30 % des loyers.",
               ],
@@ -30,14 +34,14 @@ export default {
             {
               t: "qcm",
               q: "Jusqu'à quel montant de loyers annuels le micro-foncier s'applique-t-il ?",
-              choix: ["15 000 €", "77 700 €", "23 000 €", "30 000 €"],
+              choix: [euro(B.foncier.seuilMicro), euro(B.bic.seuilMicro), euro(B.bic.seuilLMP), "30 000 €"],
               bonne: 0,
               exp: "15 000 € de loyers bruts (hors charges). Au-delà, le régime réel est obligatoire.",
             },
             {
               t: "gap",
               phrase: "Le micro-foncier applique un abattement forfaitaire de ___.",
-              choix: ["30 %", "50 %", "10 %", "71 %"],
+              choix: [pct(B.foncier.abattementMicro), "50 %", "10 %", "71 %"],
               bonne: 0,
               exp: "On n'est imposé que sur 70 % des loyers — mais on renonce à déduire les charges réelles.",
             },
@@ -77,21 +81,22 @@ export default {
           id: "s4u1l2",
           titre: "Le déficit foncier",
           emoji: "📉",
+          tag: "foncier",
           steps: [
             {
               t: "concept",
               emoji: "🕳️",
               titre: "Quand les charges dépassent les loyers",
               points: [
-                "Le déficit (hors intérêts d'emprunt) s'impute sur le revenu global jusqu'à 10 700 €/an.",
+                `Le déficit (hors intérêts d'emprunt) s'impute sur le revenu global jusqu'à ${euro(B.foncier.deficitImputable)}/an.`,
                 "Le surplus et les intérêts se reportent sur les revenus fonciers des 10 années suivantes.",
-                "Plafond porté à 21 400 € pour certains travaux de rénovation énergétique (dispositif temporaire).",
+                `Plafond porté à ${euro(B.foncier.deficitImputableEnergie)} pour certains travaux de rénovation énergétique (dispositif temporaire).`,
               ],
             },
             {
               t: "qcm",
               q: "Plafond d'imputation du déficit foncier sur le revenu global ?",
-              choix: ["10 700 €", "21 400 € dans tous les cas", "15 000 €", "Illimité"],
+              choix: [euro(B.foncier.deficitImputable), `${euro(B.foncier.deficitImputableEnergie)} dans tous les cas`, "15 000 €", "Illimité"],
               bonne: 0,
               exp: "10 700 € (cas général). L'économie vaut TMI × montant imputé — puissant à TMI élevée.",
             },
@@ -146,6 +151,7 @@ export default {
           id: "s4u2l1",
           titre: "Le LMNP",
           emoji: "🛋️",
+          tag: "lmnp",
           steps: [
             {
               t: "concept",
@@ -153,7 +159,7 @@ export default {
               titre: "Le meublé change de monde fiscal",
               points: [
                 "La location meublée relève des BIC (bénéfices industriels et commerciaux), pas du foncier.",
-                "Micro-BIC (longue durée) : abattement de 50 %, seuil 77 700 €.",
+                `Micro-BIC (longue durée) : abattement de ${pct(B.bic.abattementMicro)}, seuil ${euro(B.bic.seuilMicro)}.`,
                 "Régime réel : déduction des charges ET amortissement du bien — l'arme fatale.",
               ],
             },
@@ -167,7 +173,7 @@ export default {
             {
               t: "gap",
               phrase: "Le micro-BIC (meublé longue durée) applique un abattement de ___.",
-              choix: ["50 %", "30 %", "71 %", "10 %"],
+              choix: [pct(B.bic.abattementMicro), "30 %", "71 %", "10 %"],
               bonne: 0,
               exp: "50 % contre 30 % en micro-foncier : à régime « micro », le meublé part déjà avec un avantage.",
             },
@@ -207,6 +213,7 @@ export default {
           id: "s4u2l2",
           titre: "Meublé : pièges et nouveautés",
           emoji: "⚠️",
+          tag: "lmnp",
           steps: [
             {
               t: "concept",
@@ -232,7 +239,7 @@ export default {
             },
             {
               t: "vf",
-              q: "Le statut LMP (professionnel) s'applique si les recettes dépassent 23 000 € ET les autres revenus d'activité du foyer.",
+              q: `Le statut LMP (professionnel) s'applique si les recettes dépassent ${euro(B.bic.seuilLMP)} ET les autres revenus d'activité du foyer.`,
               vrai: true,
               exp: "Les DEUX conditions cumulées font basculer en LMP : cotisations sociales, régime de plus-values différent. À surveiller chez les gros loueurs.",
             },
@@ -269,6 +276,7 @@ export default {
           id: "s4u3l1",
           titre: "SCI : IR ou IS ?",
           emoji: "🏢",
+          tag: "sci",
           steps: [
             {
               t: "concept",
@@ -291,7 +299,7 @@ export default {
               emoji: "🏭",
               titre: "La SCI à l'IS : un autre monde",
               points: [
-                "La société paie l'IS (15 % jusqu'à 42 500 € de bénéfice, 25 % au-delà) et peut amortir l'immeuble.",
+                `La société paie l'IS (${pct(B.is.tauxReduit)} jusqu'à ${euro(B.is.seuilTauxReduit)} de bénéfice, ${pct(B.is.tauxNormal)} au-delà) et peut amortir l'immeuble.`,
                 "Mais à la revente : plus-value professionnelle, amortissements repris — souvent très lourde.",
                 "Et sortir l'argent vers l'associé (dividendes) déclenche une 2e taxation.",
               ],
@@ -338,14 +346,15 @@ export default {
           id: "s4u3l2",
           titre: "La plus-value immobilière",
           emoji: "🔑",
+          tag: "pv-immo",
           steps: [
             {
               t: "concept",
               emoji: "🧾",
               titre: "Le régime des particuliers",
               points: [
-                "Taux : 19 % d'IR + 17,2 % de PS sur la plus-value.",
-                "Abattements pour durée de détention : exonération d'IR au bout de 22 ans, de PS au bout de 30 ans.",
+                `Taux : ${pct(B.pvImmo.tauxIR)} d'IR + ${pct(B.ps)} de PS sur la plus-value.`,
+                `Abattements pour durée de détention : exonération d'IR au bout de ${B.pvImmo.exoIRAnnees} ans, de PS au bout de ${B.pvImmo.exoPSAnnees} ans.`,
                 "Résidence principale : exonération totale, sans condition de durée.",
               ],
             },
@@ -372,7 +381,7 @@ export default {
             {
               t: "qcm",
               q: "Une surtaxe s'applique aux plus-values immobilières supérieures à :",
-              choix: ["50 000 € (2 à 6 %)", "100 000 €", "500 000 €", "Aucune surtaxe n'existe"],
+              choix: [`${euro(B.pvImmo.seuilSurtaxe)} (2 à 6 %)`, "100 000 €", "500 000 €", "Aucune surtaxe n'existe"],
               bonne: 0,
               exp: "Surtaxe progressive de 2 à 6 % au-delà de 50 000 € de plus-value nette imposable — souvent oubliée dans les simulations.",
             },

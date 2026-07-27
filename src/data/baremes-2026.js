@@ -1,0 +1,97 @@
+// ===================================================================
+// BARÈMES & VALEURS MILLÉSIMÉES — source unique de tous les chiffres
+// fiscaux utilisés dans les leçons (src/data/sections/*.js).
+//
+// Dernière vérification : 27/07/2026.
+// ⚠️ Millésime du contenu : les valeurs ci-dessous sont celles de la
+// rédaction initiale des leçons (loi de finances 2025, revenus 2024).
+//
+// RAPPEL DE MISE À JOUR ANNUELLE : à chaque loi de finances (décembre),
+// vérifier chaque valeur sur impots.gouv.fr / bofip.gouv.fr et la
+// corriger ICI — les leçons référencent ces constantes, une correction
+// se propage partout. Mettre à jour la date de vérification ci-dessus.
+// ===================================================================
+
+// Formate 11497 -> "11 497 €" (espace insécable fine gérée par toLocaleString)
+export const euro = (n) => n.toLocaleString("fr-FR") + " €";
+// Formate 17.2 -> "17,2 %"
+export const pct = (n) => String(n).replace(".", ",") + " %";
+
+export const BAREMES = {
+  // --- Impôt sur le revenu (barème LF 2025, revenus 2024) ---
+  ir: {
+    t1: 11497, // fin de la tranche à 0 %
+    t2: 29315, // fin de la tranche à 11 %
+    t3: 83823, // fin de la tranche à 30 %
+    t4: 180294, // fin de la tranche à 41 % (45 % au-delà)
+    plafondDemiPart: 1791, // plafonnement du quotient familial, par demi-part
+    plafondPensionEnfantMajeur: 6794, // pension alimentaire déductible (enfant majeur)
+    plafondNiches: 10000, // plafonnement global des niches fiscales
+  },
+
+  // --- Flat tax et prélèvements sociaux ---
+  pfu: { ir: 12.8, ps: 17.2, total: 30 },
+  ps: 17.2, // CSG 9,2 + CRDS 0,5 + solidarité 7,5
+  abattementDividendes: 40, // option barème uniquement
+
+  // --- Assurance-vie ---
+  av: {
+    abattementRachatSeul: 4600, // gains, par an, après 8 ans
+    abattementRachatCouple: 9200,
+    tauxReduit: 7.5, // après 8 ans, primes <= 150 000 €
+    seuilPrimes: 150000,
+    abattement990I: 152500, // primes versées avant 70 ans, PAR bénéficiaire
+    taux990I: 20, // jusqu'à 700 000 € taxables (31,25 % au-delà)
+    abattement757B: 30500, // primes versées après 70 ans, abattement GLOBAL
+  },
+
+  // --- PEA / PER ---
+  pea: { plafond: 150000, plafondAvecPme: 225000 },
+  per: { plafondMax: 37094, plafondMin: 4637, tauxRevenus: 10 }, // 10 % des revenus pro, plafonds 2025
+
+  // --- Immobilier locatif ---
+  foncier: {
+    seuilMicro: 15000,
+    abattementMicro: 30,
+    deficitImputable: 10700,
+    deficitImputableEnergie: 21400, // travaux de rénovation énergétique (temporaire)
+    reportAnnees: 10,
+  },
+  bic: {
+    seuilMicro: 77700, // meublé longue durée
+    abattementMicro: 50,
+    seuilTourismeNonClasse: 15000,
+    abattementTourismeNonClasse: 30,
+    seuilLMP: 23000,
+  },
+  pvImmo: {
+    tauxIR: 19,
+    exoIRAnnees: 22,
+    exoPSAnnees: 30,
+    seuilSurtaxe: 50000, // surtaxe 2 à 6 % au-delà
+  },
+
+  // --- IFI ---
+  ifi: { seuilEntree: 1300000, seuilCalcul: 800000, abattementRP: 30 },
+
+  // --- Succession / donation ---
+  succession: {
+    abattementEnfant: 100000,
+    abattementFrereSoeur: 15932,
+    abattementNeveu: 7967,
+    abattementTiers: 1594,
+    abattementPetitEnfant: 31865,
+    tauxTiers: 60, // concubins et non-parents
+    rappelAnnees: 15, // rappel fiscal / recharge des abattements
+  },
+  donation: {
+    donFamilial: 31865, // art. 790 G, donateur < 80 ans, donataire majeur
+    ageMaxDonateur: 80,
+  },
+  usufruit669: { u51_60: 50, u61_70: 40, u71_80: 30, u81_90: 20 }, // % de la pleine propriété
+  dutreil: { exoneration: 75 },
+  dons: { reduction: 66 }, // dons aux associations d'intérêt général
+
+  // --- IS (SCI à l'IS) ---
+  is: { tauxReduit: 15, seuilTauxReduit: 42500, tauxNormal: 25 },
+};

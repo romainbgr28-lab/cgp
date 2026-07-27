@@ -6,7 +6,7 @@ export default {
   titre: "Le conseil en pratique",
   sousTitre: "Allocation d'actifs, entretien, objections",
   emoji: "🚀",
-  couleur: { base: "#00cd9c", dark: "#00a37d", light: "#d0fff1" },
+  couleur: { base: "#047857", dark: "#065f46", light: "#d3f4e6" },
   unites: [
     {
       id: "s6u1",
@@ -16,6 +16,7 @@ export default {
           id: "s6u1l1",
           titre: "Les classes d'actifs",
           emoji: "🧺",
+          tag: "bilan-profil",
           steps: [
             {
               t: "concept",
@@ -78,6 +79,7 @@ export default {
           id: "s6u1l2",
           titre: "Construire une allocation",
           emoji: "🏗️",
+          tag: "bilan-profil",
           steps: [
             {
               t: "concept",
@@ -150,6 +152,7 @@ export default {
           id: "s6u2l1",
           titre: "L'art de la découverte",
           emoji: "🔍",
+          tag: "relation-client",
           steps: [
             {
               t: "concept",
@@ -216,6 +219,7 @@ export default {
           id: "s6u2l2",
           titre: "Traiter les objections",
           emoji: "🛡️",
+          tag: "relation-client",
           steps: [
             {
               t: "concept",

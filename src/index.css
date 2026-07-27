@@ -6,53 +6,58 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 body {
-  @apply bg-white font-sans text-duo-text;
+  @apply bg-white font-sans text-pat-ink;
   overscroll-behavior-y: none;
 }
 
-/* ---- Boutons "3D" façon Duolingo : ombre pleine dessous, s'enfonce au clic ---- */
+/* Titres : police arrondie de la marque (Fredoka) */
+h1, h2, h3, .font-display {
+  font-family: "Fredoka", "Inter", system-ui, sans-serif;
+}
+
+/* ---- Boutons "3D" : ombre pleine dessous, s'enfonce au clic ---- */
 .btn3d {
   @apply select-none rounded-2xl font-extrabold uppercase tracking-wide transition-all duration-100;
-  box-shadow: 0 4px 0 var(--btn-shadow, #46a302);
+  box-shadow: 0 4px 0 var(--btn-shadow, #2f3d8f);
 }
 .btn3d:active:not(:disabled) {
   transform: translateY(4px);
-  box-shadow: 0 0 0 var(--btn-shadow, #46a302);
+  box-shadow: 0 0 0 var(--btn-shadow, #2f3d8f);
 }
 .btn3d:disabled {
   @apply cursor-not-allowed;
-  background: #e5e5e5 !important;
-  color: #afafaf !important;
-  box-shadow: 0 4px 0 #d0d0d0;
+  background: #e7e6f0 !important;
+  color: #a3a1b5 !important;
+  box-shadow: 0 4px 0 #d3d1e0;
 }
 
 /* Cartes-réponses cliquables */
 .choice3d {
   @apply select-none rounded-2xl border-2 bg-white text-left transition-all duration-100;
-  border-color: #e5e5e5;
-  box-shadow: 0 3px 0 #e5e5e5;
+  border-color: #e7e6f0;
+  box-shadow: 0 3px 0 #e7e6f0;
 }
 .choice3d:active:not(:disabled) {
   transform: translateY(3px);
-  box-shadow: 0 0 0 #e5e5e5;
+  box-shadow: 0 0 0 #e7e6f0;
 }
 .choice3d.sel {
-  border-color: #84d8ff;
-  background: #ddf4ff;
-  box-shadow: 0 3px 0 #84d8ff;
-  color: #1899d6;
+  border-color: #b9c1ee;
+  background: #e6e9fb;
+  box-shadow: 0 3px 0 #b9c1ee;
+  color: #2f3d8f;
 }
 .choice3d.ok {
-  border-color: #a5ed6e;
-  background: #d7ffb8;
-  box-shadow: 0 3px 0 #a5ed6e;
-  color: #58a700;
+  border-color: #9adfc3;
+  background: #dcf5eb;
+  box-shadow: 0 3px 0 #9adfc3;
+  color: #067a53;
 }
 .choice3d.ko {
-  border-color: #ffb2b2;
-  background: #ffdfe0;
-  box-shadow: 0 3px 0 #ffb2b2;
-  color: #ea2b2b;
+  border-color: #f4b7c2;
+  background: #fde3e8;
+  box-shadow: 0 3px 0 #f4b7c2;
+  color: #c23349;
 }
 .choice3d.dim {
   opacity: 0.45;
@@ -99,9 +104,9 @@ body {
 .anim-bounce-soft { animation: bounceSoft 1.6s ease-in-out infinite; }
 
 @keyframes pulseRing {
-  0% { box-shadow: 0 0 0 0 rgba(88, 204, 2, 0.45); }
-  70% { box-shadow: 0 0 0 14px rgba(88, 204, 2, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(88, 204, 2, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(65, 82, 179, 0.45); }
+  70% { box-shadow: 0 0 0 14px rgba(65, 82, 179, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(65, 82, 179, 0); }
 }
 .anim-pulse-ring { animation: pulseRing 1.8s ease-out infinite; }
 
@@ -139,10 +144,10 @@ body {
 
 /* Barre de progression de leçon */
 .lesson-bar {
-  @apply h-4 flex-1 overflow-hidden rounded-full bg-duo-line;
+  @apply h-4 flex-1 overflow-hidden rounded-full bg-pat-line;
 }
 .lesson-bar > div {
-  @apply h-full rounded-full bg-duo-green transition-all duration-500;
+  @apply h-full rounded-full bg-pat-brand transition-all duration-500;
   background-image: linear-gradient(
     -45deg,
     rgba(255, 255, 255, 0.18) 25%, transparent 25%, transparent 50%,
@@ -152,6 +157,21 @@ body {
   animation: progressStripe 1s linear infinite;
 }
 
+/* Écusson (nœud d'examen) */
+.shield-node {
+  clip-path: polygon(50% 0, 100% 16%, 100% 60%, 50% 100%, 0 60%, 0 16%);
+}
+
 /* Masquer les scrollbars sur le chemin */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ---- Accessibilité : respecter prefers-reduced-motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .confetti { display: none; }
+}

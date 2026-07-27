@@ -79,9 +79,9 @@ export default function Coach() {
   if (!hasKey) {
     return (
       <div className="mx-auto flex max-w-xl flex-col gap-5 px-6 pt-10">
-        <Mascotte emoji="🧑‍🏫">Je suis ton coach. Pour m'activer, il me faut une clé API Mistral (gratuite).</Mascotte>
-        <div className="rounded-2xl border-2 border-duo-line bg-white p-5">
-          <p className="text-[14px] font-semibold text-duo-muted">
+        <Mascotte>Je suis ton coach. Pour m'activer, il me faut une clé API Mistral (gratuite).</Mascotte>
+        <div className="rounded-2xl border-2 border-pat-line bg-white p-5">
+          <p className="text-[14px] font-semibold text-pat-muted">
             Le coach lit ta progression et tes erreurs réelles pour te guider. Il ne génère jamais le contenu des leçons — tout est pré-enregistré et vérifié.
           </p>
           <input
@@ -89,7 +89,7 @@ export default function Coach() {
             value={keyInput}
             onChange={(e) => setKeyInput(e.target.value)}
             placeholder="Clé API Mistral (console.mistral.ai)"
-            className="mt-4 w-full rounded-xl border-2 border-duo-line px-4 py-3 text-[15px] font-semibold focus:border-duo-blue focus:outline-none"
+            className="mt-4 w-full rounded-xl border-2 border-pat-line px-4 py-3 text-[15px] font-semibold focus:border-pat-brand focus:outline-none"
           />
           <Btn
             className="mt-3 w-full"
@@ -101,7 +101,7 @@ export default function Coach() {
           >
             Activer le coach
           </Btn>
-          <p className="mt-2 text-center text-[12px] font-semibold text-duo-muted">Clé stockée uniquement dans ton navigateur.</p>
+          <p className="mt-2 text-center text-[12px] font-semibold text-pat-muted">Clé stockée uniquement dans ton navigateur.</p>
         </div>
       </div>
     );
@@ -112,13 +112,13 @@ export default function Coach() {
       <div className="flex-1 space-y-3 overflow-y-auto pb-40">
         {messages.length === 0 && (
           <div className="flex flex-col gap-4 pt-6">
-            <Mascotte emoji="🧑‍🏫">Salut champion ! Je connais tout ton parcours et tes erreurs. Que veux-tu savoir ?</Mascotte>
+            <Mascotte>Salut champion ! Je connais tout ton parcours et tes erreurs. Que veux-tu savoir ?</Mascotte>
             <div className="flex flex-wrap gap-2">
               {SUGGESTIONS.map((s) => (
                 <button
                   key={s}
                   onClick={() => envoyer(s)}
-                  className="choice3d px-4 py-2 text-[14px] font-bold text-duo-blue"
+                  className="choice3d px-4 py-2 text-[14px] font-bold text-pat-brand"
                 >
                   {s}
                 </button>
@@ -130,26 +130,26 @@ export default function Coach() {
           <div key={i} className={`anim-fade-up flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
             <div
               className={`max-w-[85%] whitespace-pre-line rounded-2xl px-4 py-3 text-[15px] font-semibold leading-snug ${
-                m.role === "user" ? "rounded-br-md bg-duo-blue text-white" : "rounded-bl-md border-2 border-duo-line bg-white text-duo-text"
+                m.role === "user" ? "rounded-br-md bg-pat-brand text-white" : "rounded-bl-md border-2 border-pat-line bg-white text-pat-ink"
               }`}
             >
               {m.content}
             </div>
           </div>
         ))}
-        {enCours && <p className="pl-2 text-[13px] font-bold italic text-duo-muted">Le coach réfléchit…</p>}
-        {erreur && <p className="rounded-xl bg-[#ffdfe0] px-4 py-2 text-[13px] font-bold text-duo-redDark">{erreur}</p>}
+        {enCours && <p className="pl-2 text-[13px] font-bold italic text-pat-muted">Le coach réfléchit…</p>}
+        {erreur && <p className="rounded-xl bg-[#fde3e8] px-4 py-2 text-[13px] font-bold text-pat-coralDark">{erreur}</p>}
         <div ref={finRef} />
       </div>
 
-      <div className="fixed inset-x-0 bottom-16 border-t-2 border-duo-line bg-white">
+      <div className="fixed inset-x-0 bottom-16 border-t-2 border-pat-line bg-white">
         <div className="mx-auto flex max-w-xl gap-2 px-4 py-3">
           <input
             value={saisie}
             onChange={(e) => setSaisie(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && envoyer()}
             placeholder="Pose ta question au coach…"
-            className="flex-1 rounded-xl border-2 border-duo-line px-4 py-2.5 text-[15px] font-semibold focus:border-duo-blue focus:outline-none"
+            className="flex-1 rounded-xl border-2 border-pat-line px-4 py-2.5 text-[15px] font-semibold focus:border-pat-brand focus:outline-none"
           />
           <Btn onClick={() => envoyer()} disabled={enCours || !saisie.trim()} className="px-5">
             ➤

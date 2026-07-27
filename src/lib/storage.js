@@ -89,7 +89,7 @@ export function addToDeck(step, meta) {
     c.ok = 0;
     c.due = Date.now() + JOUR;
   } else {
-    deck.push({ id, step, sectionTitre: meta.sectionTitre, couleur: meta.couleur, due: Date.now() + JOUR, ok: 0 });
+    deck.push({ id, step, sectionTitre: meta.sectionTitre, couleur: meta.couleur, tag: meta.tag, due: Date.now() + JOUR, ok: 0 });
   }
   stSet("deck", deck);
 }
@@ -119,13 +119,70 @@ export function answerDeckCard(id, correct) {
 }
 
 // ---- Historique d'erreurs (pour le Coach) ----
-// erreurs = [{ q, mauvaise, bonne, exp, section, date }]
+// erreurs = [{ q, mauvaise, bonne, exp, section, tag?, date }]
+// (tag absent sur les erreurs enregistrées avant l'ajout des tags : géré partout)
 export function logErreur(e) {
   const errs = stGet("erreurs", []);
   errs.unshift({ ...e, date: new Date().toISOString() });
   stSet("erreurs", errs.slice(0, 40));
 }
 export const getErreurs = () => stGet("erreurs", []);
+
+// ---- Examens de section ----
+// exams = { [sectionId]: { note, reussi, date, fois } }
+export const getExams = () => stGet("exams", {});
+export function saveExamResult(sectionId, note, seuil) {
+  const e = getExams();
+  const prev = e[sectionId];
+  e[sectionId] = {
+    note: Math.max(prev?.note ?? 0, note),
+    reussi: !!prev?.reussi || note >= seuil,
+    date: new Date().toISOString(),
+    fois: (prev?.fois || 0) + 1,
+  };
+  stSet("exams", e);
+  return e;
+}
+
+// ---- Statistiques par tag thématique (points faibles récurrents) ----
+// tagStats = { [tag]: { ok, ko } } — absent pour les anciens utilisateurs : défaut {}
+export const getTagStats = () => stGet("tagStats", {});
+export function bumpTagStat(tag, correct) {
+  if (!tag) return; // question sans tag (données antérieures) : on ignore
+  const s = getTagStats();
+  const t = s[tag] || { ok: 0, ko: 0 };
+  if (correct) t.ok += 1;
+  else t.ko += 1;
+  s[tag] = t;
+  stSet("tagStats", s);
+}
+
+// ---- Objection du jour ----
+// objVues = { [objectionId]: dateISO } ; objJour = { day, id }
+export const getObjVues = () => stGet("objVues", {});
+export function markObjVue(id) {
+  const v = getObjVues();
+  v[id] = new Date().toISOString();
+  stSet("objVues", v);
+}
+export function objectionDuJour(objections) {
+  const day = Math.floor(Date.now() / 86400000);
+  const memo = stGet("objJour", null);
+  if (memo && memo.day === day) {
+    const o = objections.find((x) => x.id === memo.id);
+    if (o) return o;
+  }
+  const vues = getObjVues();
+  const recente = (id) => vues[id] && Date.now() - new Date(vues[id]).getTime() < 10 * 86400000;
+  let choix = null;
+  for (let k = 0; k < objections.length; k++) {
+    const o = objections[(day + k) % objections.length];
+    if (!recente(o.id)) { choix = o; break; }
+  }
+  if (!choix) choix = objections[day % objections.length]; // tout vu récemment : roulement simple
+  stSet("objJour", { day, id: choix.id });
+  return choix;
+}
 
 // ---- Badges ----
 export const BADGES = [

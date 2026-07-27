@@ -1,12 +1,15 @@
 // SECTION 5 — TRANSMISSION
+// Valeurs chiffrées récurrentes : centralisées dans ../baremes-2026.js.
 // Abattements et barèmes : valeurs en vigueur LF 2025.
+
+import { BAREMES as B, euro, pct } from "../baremes-2026.js";
 
 export default {
   id: "s5",
   titre: "Transmission",
   sousTitre: "Succession, donations, démembrement, Dutreil",
   emoji: "🎁",
-  couleur: { base: "#f75c9b", dark: "#d14b83", light: "#ffe0ee" },
+  couleur: { base: "#c73a72", dark: "#9e2c58", light: "#fce3ee" },
   unites: [
     {
       id: "s5u1",
@@ -16,6 +19,7 @@ export default {
           id: "s5u1l1",
           titre: "Qui hérite ?",
           emoji: "👪",
+          tag: "succession",
           steps: [
             {
               t: "concept",
@@ -87,15 +91,16 @@ export default {
           id: "s5u1l2",
           titre: "Les droits de succession",
           emoji: "🧾",
+          tag: "succession",
           steps: [
             {
               t: "concept",
               emoji: "🎟️",
               titre: "Les abattements",
               points: [
-                "Enfant : 100 000 € (se reconstitue tous les 15 ans).",
+                `Enfant : ${euro(B.succession.abattementEnfant)} (se reconstitue tous les ${B.succession.rappelAnnees} ans).`,
                 "Conjoint et partenaire de PACS : exonération TOTALE.",
-                "Frère/sœur : 15 932 € ; neveu/nièce : 7 967 € ; tiers : 1 594 €.",
+                `Frère/sœur : ${euro(B.succession.abattementFrereSoeur)} ; neveu/nièce : ${euro(B.succession.abattementNeveu)} ; tiers : ${euro(B.succession.abattementTiers)}.`,
               ],
             },
             {
@@ -111,7 +116,7 @@ export default {
             {
               t: "qcm",
               q: "Quel est l'abattement d'un enfant sur la succession de chaque parent ?",
-              choix: ["100 000 €", "152 500 €", "31 865 €", "50 000 €"],
+              choix: [euro(B.succession.abattementEnfant), euro(B.av.abattement990I), euro(B.succession.abattementPetitEnfant), "50 000 €"],
               bonne: 0,
               exp: "100 000 € par parent et par enfant. Un couple peut donc transmettre 400 000 € à ses 2 enfants sans droits (2 parents × 2 enfants).",
             },
@@ -155,6 +160,7 @@ export default {
           id: "s5u1l3",
           titre: "Anticiper la succession",
           emoji: "🗺️",
+          tag: "succession",
           steps: [
             {
               t: "concept",
@@ -217,21 +223,22 @@ export default {
           id: "s5u2l1",
           titre: "Donner de son vivant",
           emoji: "🎀",
+          tag: "donations",
           steps: [
             {
               t: "concept",
               emoji: "💶",
               titre: "Abattements et dons d'argent",
               points: [
-                "Donation classique : mêmes abattements qu'en succession (100 000 €/enfant, 31 865 €/petit-enfant), rechargés tous les 15 ans.",
-                "Don familial d'argent (art. 790 G) : 31 865 € EN PLUS, si donateur < 80 ans et donataire majeur.",
+                `Donation classique : mêmes abattements qu'en succession (${euro(B.succession.abattementEnfant)}/enfant, ${euro(B.succession.abattementPetitEnfant)}/petit-enfant), rechargés tous les ${B.succession.rappelAnnees} ans.`,
+                `Don familial d'argent (art. 790 G) : ${euro(B.donation.donFamilial)} EN PLUS, si donateur < ${B.donation.ageMaxDonateur} ans et donataire majeur.`,
                 "Le présent d'usage (proportionné, à une occasion) échappe à toute taxation.",
               ],
             },
             {
               t: "qcm",
               q: "Montant du don familial d'argent exonéré (art. 790 G) ?",
-              choix: ["31 865 €", "100 000 €", "15 932 €", "152 500 €"],
+              choix: [euro(B.donation.donFamilial), euro(B.succession.abattementEnfant), euro(B.succession.abattementFrereSoeur), euro(B.av.abattement990I)],
               bonne: 0,
               exp: "31 865 € par donateur et par donataire, tous les 15 ans — donateur de moins de 80 ans, bénéficiaire majeur. Uniquement des sommes d'argent.",
             },
@@ -280,6 +287,7 @@ export default {
           id: "s5u2l2",
           titre: "La donation-partage",
           emoji: "🧰",
+          tag: "donations",
           steps: [
             {
               t: "concept",
@@ -345,6 +353,7 @@ export default {
           id: "s5u3l1",
           titre: "Usufruit et nue-propriété",
           emoji: "✂️",
+          tag: "demembrement",
           steps: [
             {
               t: "concept",
@@ -362,7 +371,7 @@ export default {
               titre: "Le barème fiscal (art. 669 CGI)",
               points: [
                 "La valeur de l'usufruit dépend de l'âge de l'usufruitier au jour de la donation.",
-                "51-60 ans : usufruit 50 % / 61-70 ans : 40 % / 71-80 ans : 30 % / 81-90 ans : 20 %.",
+                `51-60 ans : usufruit ${pct(B.usufruit669.u51_60)} / 61-70 ans : ${pct(B.usufruit669.u61_70)} / 71-80 ans : ${pct(B.usufruit669.u71_80)} / 81-90 ans : ${pct(B.usufruit669.u81_90)}.`,
                 "On ne taxe que la nue-propriété donnée : donner tôt = base taxable réduite.",
               ],
             },
@@ -406,13 +415,14 @@ export default {
           id: "s5u3l2",
           titre: "Le pacte Dutreil",
           emoji: "🏭",
+          tag: "transmission-entreprise",
           steps: [
             {
               t: "concept",
               emoji: "🎖️",
               titre: "Transmettre l'entreprise à −75 %",
               points: [
-                "Exonération de 75 % de la valeur des titres transmis (donation ou succession).",
+                `Exonération de ${pct(B.dutreil.exoneration)} de la valeur des titres transmis (donation ou succession).`,
                 "Conditions : engagement collectif de conservation de 2 ans, puis individuel de 4 ans, et une fonction de direction exercée pendant 3 ans.",
                 "Cumulable avec une réduction de droits de 50 % si donation en pleine propriété avant 65 ans.",
               ],
@@ -420,7 +430,7 @@ export default {
             {
               t: "qcm",
               q: "Quel pourcentage de la valeur de l'entreprise est exonéré avec un pacte Dutreil ?",
-              choix: ["75 %", "50 %", "100 %", "30 %"],
+              choix: [pct(B.dutreil.exoneration), "50 %", "100 %", "30 %"],
               bonne: 0,
               exp: "On ne taxe que 25 % de la valeur — avant abattements. C'est le dispositif central de la transmission d'entreprise familiale.",
             },

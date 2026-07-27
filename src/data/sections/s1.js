@@ -1,12 +1,15 @@
 // SECTION 1 — LES FONDAMENTAUX DU MÉTIER
+// Valeurs chiffrées récurrentes : centralisées dans ../baremes-2026.js.
 // Contenu rédigé et vérifié à la main (millésime : loi de finances 2025).
+
+import { BAREMES as B, euro, pct } from "../baremes-2026.js";
 
 export default {
   id: "s1",
   titre: "Les fondamentaux",
   sousTitre: "Le métier, le cadre, le bilan patrimonial",
   emoji: "🧭",
-  couleur: { base: "#58cc02", dark: "#46a302", light: "#d7ffb8" },
+  couleur: { base: "#4152b3", dark: "#2f3d8f", light: "#e6e9fb" },
   unites: [
     {
       id: "s1u1",
@@ -16,6 +19,7 @@ export default {
           id: "s1u1l1",
           titre: "Le rôle du CGP",
           emoji: "💼",
+          tag: "relation-client",
           steps: [
             {
               t: "concept",
@@ -105,6 +109,7 @@ export default {
           id: "s1u1l2",
           titre: "Le cadre réglementaire",
           emoji: "⚖️",
+          tag: "deontologie-kyc",
           steps: [
             {
               t: "concept",
@@ -194,6 +199,7 @@ export default {
           id: "s1u2l1",
           titre: "Photographier un patrimoine",
           emoji: "📸",
+          tag: "bilan-profil",
           steps: [
             {
               t: "concept",
@@ -266,6 +272,7 @@ export default {
           id: "s1u2l2",
           titre: "Objectifs et profil de risque",
           emoji: "🎯",
+          tag: "bilan-profil",
           steps: [
             {
               t: "concept",
@@ -348,6 +355,7 @@ export default {
           id: "s1u3l1",
           titre: "Les régimes matrimoniaux",
           emoji: "💍",
+          tag: "couple-regimes",
           steps: [
             {
               t: "concept",
@@ -416,7 +424,7 @@ export default {
               phrase: "La communauté universelle avec clause d'attribution intégrale transmet ___ des biens au conjoint survivant.",
               choix: ["la totalité", "la moitié", "un quart", "l'usufruit seulement"],
               bonne: 0,
-              exp: "Le survivant reçoit tout sans droits de succession. Revers : les enfants attendent le second décès et perdent un abattement de 100 000 € par parent.",
+              exp: `Le survivant reçoit tout sans droits de succession. Revers : les enfants attendent le second décès et perdent un abattement de ${euro(B.succession.abattementEnfant)} par parent.`,
             },
           ],
         },
@@ -424,6 +432,7 @@ export default {
           id: "s1u3l2",
           titre: "PACS et concubinage",
           emoji: "🤝",
+          tag: "couple-regimes",
           steps: [
             {
               t: "concept",
@@ -454,14 +463,14 @@ export default {
               titre: "Les concubins : des étrangers fiscaux",
               points: [
                 "Aucun droit successoral, aucune protection légale.",
-                "S'ils se gratifient : abattement de 1 594 € puis taxation à 60 %.",
+                `S'ils se gratifient : abattement de ${euro(B.succession.abattementTiers)} puis taxation à ${pct(B.succession.tauxTiers)}.`,
                 "Outils de protection : testament, assurance-vie, achat en tontine — ou PACS/mariage.",
               ],
             },
             {
               t: "gap",
               phrase: "Entre concubins, les droits de succession s'élèvent à ___ après un abattement symbolique.",
-              choix: ["60 %", "20 %", "45 %", "0 %"],
+              choix: [pct(B.succession.tauxTiers), "20 %", "45 %", "0 %"],
               bonne: 0,
               exp: "60 % : le taux des « non-parents ». Léguer 200 000 € à son concubin en coûte ~119 000 au fisc. L'assurance-vie contourne largement ce mur.",
             },
@@ -472,7 +481,7 @@ export default {
                 ["Marié", "Exonéré et héritier"],
                 ["Pacsé", "Exonéré, pas héritier"],
                 ["Concubin", "Taxé à 60 %"],
-                ["Enfant", "Abattement 100 000 €"],
+                ["Enfant", `Abattement ${euro(B.succession.abattementEnfant)}`],
               ],
             },
             {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { QuestionBody } from "../components/steps.jsx";
 import { Btn, Mascotte } from "../components/ui.jsx";
-import { answerDeckCard, bumpRevisions } from "../lib/storage.js";
+import { answerDeckCard, bumpRevisions, bumpTagStat } from "../lib/storage.js";
 
 // Révision espacée : rejoue les questions ratées, aux échéances 1/3/7/16/35 jours.
 export default function Review({ dueCards, onDone, onWrongAgain }) {
@@ -16,7 +16,7 @@ export default function Review({ dueCards, onDone, onWrongAgain }) {
     return (
       <div className="flex flex-col items-center gap-6 px-6 pt-16">
         <Mascotte>Rien à réviser aujourd'hui — tout est frais dans ta mémoire !</Mascotte>
-        <p className="text-center text-[14px] font-semibold text-duo-muted">
+        <p className="text-center text-[14px] font-semibold text-pat-muted">
           Les questions que tu rates en leçon reviennent ici automatiquement,
           <br />à intervalles croissants (1, 3, 7, 16 puis 35 jours).
         </p>
@@ -29,8 +29,8 @@ export default function Review({ dueCards, onDone, onWrongAgain }) {
     return (
       <div className="anim-pop flex flex-col items-center gap-5 px-6 pt-16">
         <span className="text-6xl">🎉</span>
-        <h2 className="text-xl font-extrabold text-duo-text">Révision terminée !</h2>
-        <p className="text-[15px] font-bold text-duo-muted">
+        <h2 className="text-xl font-extrabold text-pat-ink">Révision terminée !</h2>
+        <p className="text-[15px] font-bold text-pat-muted">
           {score.ok}/{score.total} bonnes réponses — les échéances sont recalées.
         </p>
         <Btn onClick={onDone}>Retour au parcours</Btn>
@@ -46,6 +46,7 @@ export default function Review({ dueCards, onDone, onWrongAgain }) {
     setCorrect(ok);
     setScore((s) => ({ ok: s.ok + (ok ? 1 : 0), total: s.total + 1 }));
     answerDeckCard(carte.id, ok);
+    bumpTagStat(carte.tag ?? carte.step?._origine?.tag, ok); // cartes anciennes sans tag : ignorées
     bumpRevisions();
     if (!ok) onWrongAgain?.(step, carte);
     setPhase("feedback");
@@ -65,11 +66,11 @@ export default function Review({ dueCards, onDone, onWrongAgain }) {
       <div className="mb-4 flex items-center justify-between">
         <span
           className="rounded-full px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-white"
-          style={{ background: carte.couleur?.base || "#1cb0f6" }}
+          style={{ background: carte.couleur?.base || "#4152b3" }}
         >
           {carte.sectionTitre}
         </span>
-        <span className="text-[13px] font-extrabold text-duo-muted">
+        <span className="text-[13px] font-extrabold text-pat-muted">
           {pos + 1} / {file.length}
         </span>
       </div>
@@ -80,7 +81,7 @@ export default function Review({ dueCards, onDone, onWrongAgain }) {
 
       <div
         className={`fixed inset-x-0 bottom-16 border-t-2 ${
-          phase === "feedback" ? (correct ? "border-[#a5ed6e] bg-[#d7ffb8]" : "border-[#ffb2b2] bg-[#ffdfe0]") : "border-duo-line bg-white"
+          phase === "feedback" ? (correct ? "border-[#9adfc3] bg-[#dcf5eb]" : "border-[#f4b7c2] bg-[#fde3e8]") : "border-pat-line bg-white"
         }`}
       >
         <div className="mx-auto w-full max-w-xl px-5 py-4">
@@ -89,13 +90,13 @@ export default function Review({ dueCards, onDone, onWrongAgain }) {
               <div className="flex items-start gap-3">
                 <span className="text-2xl">{correct ? "✅" : "❌"}</span>
                 <div>
-                  <p className={`font-extrabold ${correct ? "text-[#58a700]" : "text-duo-redDark"}`}>
+                  <p className={`font-extrabold ${correct ? "text-[#067a53]" : "text-pat-coralDark"}`}>
                     {correct ? "Bien retenu !" : `Bonne réponse : ${step.t === "vf" ? (step.vrai ? "VRAI" : "FAUX") : step.choix[step.bonne]}`}
                   </p>
-                  {step.exp && <p className={`mt-0.5 text-[13px] font-semibold ${correct ? "text-[#58a700]" : "text-duo-redDark"}`}>{step.exp}</p>}
+                  {step.exp && <p className={`mt-0.5 text-[13px] font-semibold ${correct ? "text-[#067a53]" : "text-pat-coralDark"}`}>{step.exp}</p>}
                 </div>
               </div>
-              <Btn className="w-full" color={correct ? "#58cc02" : "#ff4b4b"} shadow={correct ? "#46a302" : "#ea2b2b"} onClick={continuer}>
+              <Btn className="w-full" color={correct ? "#0e9a6d" : "#e5495f"} shadow={correct ? "#0b7a55" : "#c23349"} onClick={continuer}>
                 Continuer
               </Btn>
             </div>

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 
-// Bouton 3D façon Duolingo
-export function Btn({ children, onClick, disabled, color = "#58cc02", shadow = "#46a302", textColor = "#fff", className = "", ...rest }) {
+// Bouton 3D (ombre pleine) — couleur de marque par défaut
+export function Btn({ children, onClick, disabled, color = "#4152b3", shadow = "#2f3d8f", textColor = "#fff", className = "", ...rest }) {
   return (
     <button
       onClick={onClick}
@@ -20,8 +20,8 @@ export function BtnGhost({ children, onClick, className = "", ...rest }) {
   return (
     <button
       onClick={onClick}
-      style={{ "--btn-shadow": "#e5e5e5" }}
-      className={`btn3d border-2 border-duo-line bg-white px-6 py-3 text-base text-duo-blue ${className}`}
+      style={{ "--btn-shadow": "#e7e6f0" }}
+      className={`btn3d border-2 border-pat-line bg-white px-6 py-3 text-base text-pat-brand ${className}`}
       {...rest}
     >
       {children}
@@ -32,7 +32,7 @@ export function BtnGhost({ children, onClick, className = "", ...rest }) {
 // Pluie de confettis (leçon terminée)
 export function Confetti({ count = 60 }) {
   const pieces = useMemo(() => {
-    const colors = ["#58cc02", "#1cb0f6", "#ce82ff", "#ff9600", "#ffc800", "#f75c9b"];
+    const colors = ["#4152b3", "#0369a1", "#7c4dbc", "#d97706", "#0e9a6d", "#c73a72"];
     return Array.from({ length: count }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
@@ -69,11 +69,11 @@ export function BadgeToast({ badge, onDone }) {
     return () => clearTimeout(t);
   }, [onDone]);
   return (
-    <div className="anim-pop fixed bottom-24 left-1/2 z-50 flex -translate-x-1/2 items-center gap-3 rounded-2xl border-2 border-duo-yellow bg-white px-5 py-3 shadow-xl">
+    <div className="anim-pop fixed bottom-24 left-1/2 z-50 flex -translate-x-1/2 items-center gap-3 rounded-2xl border-2 border-pat-goldDeep bg-white px-5 py-3 shadow-xl">
       <span className="text-3xl">{badge.icone}</span>
       <div>
-        <p className="text-[11px] font-extrabold uppercase tracking-widest text-duo-yellow">Badge débloqué</p>
-        <p className="font-extrabold text-duo-text">{badge.nom}</p>
+        <p className="text-[11px] font-extrabold uppercase tracking-widest text-pat-goldDeep">Badge débloqué</p>
+        <p className="font-extrabold text-pat-ink">{badge.nom}</p>
       </div>
     </div>
   );
@@ -96,13 +96,26 @@ export function XpCounter({ value, duration = 900 }) {
   return <span>{n}</span>;
 }
 
-// Bulle de dialogue de la mascotte
-export function Mascotte({ children, emoji = "🦉" }) {
+// Emblème de la marque : écusson + courbe ascendante (symbole abstrait,
+// remplace toute mascotte anthropomorphe)
+export function Embleme({ size = 52 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M50 6 88 20v30c0 24-16 38-38 44C28 88 12 74 12 50V20Z" fill="#4152b3" />
+      <path d="M50 12 82 24v26c0 20-13.5 32-32 37.5C31.5 82 18 70 18 50V24Z" fill="#2f3d8f" opacity="0.35" />
+      <path d="M28 62 44 46l10 8 18-20" stroke="#f2b01e" strokeWidth="9" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="72" cy="34" r="6" fill="#f2b01e" />
+    </svg>
+  );
+}
+
+// Bulle de dialogue de l'emblème (ex-mascotte)
+export function Mascotte({ children }) {
   return (
     <div className="flex items-end gap-3">
-      <span className="anim-bounce-soft text-5xl">{emoji}</span>
-      <div className="relative rounded-2xl border-2 border-duo-line bg-white px-4 py-3 text-[15px] font-bold text-duo-text">
-        <span className="absolute -left-2 bottom-3 h-4 w-4 rotate-45 border-b-2 border-l-2 border-duo-line bg-white" />
+      <span className="anim-bounce-soft shrink-0"><Embleme /></span>
+      <div className="relative rounded-2xl border-2 border-pat-line bg-white px-4 py-3 text-[15px] font-bold text-pat-ink">
+        <span className="absolute -left-2 bottom-3 h-4 w-4 rotate-45 border-b-2 border-l-2 border-pat-line bg-white" />
         {children}
       </div>
     </div>

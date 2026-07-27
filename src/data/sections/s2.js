@@ -1,12 +1,15 @@
 // SECTION 2 — FISCALITÉ DU PARTICULIER
+// Valeurs chiffrées récurrentes : centralisées dans ../baremes-2026.js.
 // Barème et plafonds : loi de finances 2025 (imposition des revenus 2024).
+
+import { BAREMES as B, euro, pct } from "../baremes-2026.js";
 
 export default {
   id: "s2",
   titre: "Fiscalité du particulier",
   sousTitre: "IR, flat tax, prélèvements sociaux, IFI",
   emoji: "💶",
-  couleur: { base: "#1cb0f6", dark: "#1899d6", light: "#ddf4ff" },
+  couleur: { base: "#0369a1", dark: "#075985", light: "#dbeffb" },
   unites: [
     {
       id: "s2u1",
@@ -16,6 +19,7 @@ export default {
           id: "s2u1l1",
           titre: "Le barème progressif",
           emoji: "📊",
+          tag: "tmi-ir",
           steps: [
             {
               t: "concept",
@@ -32,10 +36,10 @@ export default {
               emoji: "🔢",
               titre: "Le barème 2025 (revenus 2024)",
               points: [
-                "0 % jusqu'à 11 497 € par part",
-                "11 % de 11 497 à 29 315 €",
-                "30 % de 29 315 à 83 823 €",
-                "41 % de 83 823 à 180 294 €, puis 45 % au-delà",
+                `0 % jusqu'à ${euro(B.ir.t1)} par part`,
+                `11 % de ${euro(B.ir.t1)} à ${euro(B.ir.t2)}`,
+                `30 % de ${euro(B.ir.t2)} à ${euro(B.ir.t3)}`,
+                `41 % de ${euro(B.ir.t3)} à ${euro(B.ir.t4)}, puis 45 % au-delà`,
               ],
               exemple: "Barème réindexé chaque année en loi de finances — à vérifier sur impots.gouv.fr.",
             },
@@ -96,6 +100,7 @@ export default {
           id: "s2u1l2",
           titre: "Le quotient familial",
           emoji: "👨‍👩‍👧",
+          tag: "tmi-ir",
           steps: [
             {
               t: "concept",
@@ -125,7 +130,7 @@ export default {
               t: "vf",
               q: "L'avantage fiscal du quotient familial est sans limite.",
               vrai: false,
-              exp: "Il est plafonné à 1 791 € par demi-part (LF 2025). Au-delà, l'avantage est écrêté — cela concerne les hauts revenus.",
+              exp: `Il est plafonné à ${euro(B.ir.plafondDemiPart)} par demi-part (LF 2025). Au-delà, l'avantage est écrêté — cela concerne les hauts revenus.`,
             },
             {
               t: "qcm",
@@ -140,13 +145,13 @@ export default {
               contexte: "Les Martin (TMI 41 %) hésitent : rattacher leur fils étudiant de 22 ans, ou lui verser une pension alimentaire déductible.",
               q: "Quelle logique de comparaison ?",
               choix: [
-                "Comparer l'avantage plafonné de la demi-part (1 791 €) à l'économie de la pension déduite (pension × 41 %, plafonnée)",
+                `Comparer l'avantage plafonné de la demi-part (${euro(B.ir.plafondDemiPart)}) à l'économie de la pension déduite (pension × 41 %, plafonnée)`,
                 "Toujours rattacher : c'est automatique",
                 "Toujours déduire la pension : c'est plus moderne",
                 "Les deux se cumulent librement",
               ],
               bonne: 0,
-              exp: "On ne peut pas cumuler. À TMI élevée, la pension déductible (plafond ≈ 6 794 € en 2025) bat souvent la demi-part plafonnée : ≈ 2 786 € d'économie contre 1 791 €.",
+              exp: `On ne peut pas cumuler. À TMI élevée, la pension déductible (plafond ≈ ${euro(B.ir.plafondPensionEnfantMajeur)} en 2025) bat souvent la demi-part plafonnée : ≈ 2 786 € d'économie contre ${euro(B.ir.plafondDemiPart)}.`,
             },
             {
               t: "match",
@@ -164,6 +169,7 @@ export default {
           id: "s2u1l3",
           titre: "Réductions, crédits, déductions",
           emoji: "🧾",
+          tag: "reductions-credits",
           steps: [
             {
               t: "concept",
@@ -201,7 +207,7 @@ export default {
             {
               t: "qcm",
               q: "Le plafonnement global des niches fiscales est en principe de :",
-              choix: ["10 000 € par an", "1 791 € par an", "Illimité", "50 000 € par an"],
+              choix: [`${euro(B.ir.plafondNiches)} par an`, "1 791 € par an", "Illimité", "50 000 € par an"],
               bonne: 0,
               exp: "10 000 € d'avantages fiscaux par foyer et par an (18 000 € pour certains dispositifs outre-mer/Sofica). Les dons et le PER n'entrent pas dans ce plafond.",
             },
@@ -243,6 +249,7 @@ export default {
           id: "s2u2l1",
           titre: "La flat tax (PFU)",
           emoji: "⚡",
+          tag: "pfu-ps",
           steps: [
             {
               t: "concept",
@@ -250,7 +257,7 @@ export default {
               titre: "30 %, tout compris",
               points: [
                 "Le PFU frappe par défaut les revenus du capital : intérêts, dividendes, plus-values.",
-                "12,8 % d'impôt sur le revenu + 17,2 % de prélèvements sociaux = 30 %.",
+                `${pct(B.pfu.ir)} d'impôt sur le revenu + ${pct(B.pfu.ps)} de prélèvements sociaux = ${pct(B.pfu.total)}.`,
                 "Simple, forfaitaire, sans abattement.",
               ],
             },
@@ -258,7 +265,7 @@ export default {
               t: "qcm",
               q: "De quoi se compose le PFU de 30 % ?",
               choix: [
-                "12,8 % d'IR + 17,2 % de prélèvements sociaux",
+                `${pct(B.pfu.ir)} d'IR + ${pct(B.pfu.ps)} de prélèvements sociaux`,
                 "15 % d'IR + 15 % de PS",
                 "30 % d'IR uniquement",
                 "20 % d'IR + 10 % de CSG",
@@ -316,6 +323,7 @@ export default {
           id: "s2u2l2",
           titre: "Plus-values et prélèvements sociaux",
           emoji: "📈",
+          tag: "pfu-ps",
           steps: [
             {
               t: "concept",
@@ -353,7 +361,7 @@ export default {
             {
               t: "qcm",
               q: "Le taux global des prélèvements sociaux sur les revenus du capital est :",
-              choix: ["17,2 %", "12,8 %", "9,2 %", "15,5 %"],
+              choix: [pct(B.ps), "12,8 %", "9,2 %", "15,5 %"],
               bonne: 0,
               exp: "17,2 % — et ils s'appliquent même là où l'IR est exonéré (PEA mûr, assurance-vie sous abattement).",
             },
@@ -383,6 +391,7 @@ export default {
           id: "s2u3l1",
           titre: "L'impôt sur la fortune immobilière",
           emoji: "🏛️",
+          tag: "ifi",
           steps: [
             {
               t: "concept",
@@ -404,7 +413,7 @@ export default {
             {
               t: "gap",
               phrase: "La résidence principale bénéficie d'un abattement IFI de ___.",
-              choix: ["30 %", "20 %", "50 %", "100 %"],
+              choix: [pct(B.ifi.abattementRP), "20 %", "50 %", "100 %"],
               bonne: 0,
               exp: "Une RP de 1 M€ ne compte que pour 700 000 € dans l'assiette.",
             },

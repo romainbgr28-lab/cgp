@@ -1,12 +1,15 @@
 // SECTION 3 — LES ENVELOPPES D'ÉPARGNE
+// Valeurs chiffrées récurrentes : centralisées dans ../baremes-2026.js.
 // Valeurs : loi de finances 2025. PASS 2024 = 46 368 € (plafonds PER 2025).
+
+import { BAREMES as B, euro, pct } from "../baremes-2026.js";
 
 export default {
   id: "s3",
   titre: "Les enveloppes d'épargne",
   sousTitre: "Assurance-vie, PEA, CTO, PER",
   emoji: "💼",
-  couleur: { base: "#ce82ff", dark: "#a568cc", light: "#f3e0ff" },
+  couleur: { base: "#7c4dbc", dark: "#5f3a94", light: "#f0e7fb" },
   unites: [
     {
       id: "s3u1",
@@ -16,6 +19,7 @@ export default {
           id: "s3u1l1",
           titre: "Le couteau suisse de l'épargne",
           emoji: "🇨🇭",
+          tag: "av-rachats",
           steps: [
             {
               t: "concept",
@@ -82,6 +86,7 @@ export default {
           id: "s3u1l2",
           titre: "La fiscalité des rachats",
           emoji: "💸",
+          tag: "av-rachats",
           steps: [
             {
               t: "concept",
@@ -98,22 +103,22 @@ export default {
               emoji: "🎂",
               titre: "Le cap des 8 ans",
               points: [
-                "Avant 8 ans : gains au PFU (12,8 % + 17,2 % de PS).",
-                "Après 8 ans : abattement annuel de 4 600 € (9 200 € pour un couple) sur les gains.",
-                "Au-delà de l'abattement : 7,5 % (primes ≤ 150 000 €), sinon 12,8 %. PS 17,2 % dans tous les cas.",
+                `Avant 8 ans : gains au PFU (${pct(B.pfu.ir)} + ${pct(B.pfu.ps)} de PS).`,
+                `Après 8 ans : abattement annuel de ${euro(B.av.abattementRachatSeul)} (${euro(B.av.abattementRachatCouple)} pour un couple) sur les gains.`,
+                `Au-delà de l'abattement : ${pct(B.av.tauxReduit)} (primes ≤ ${euro(B.av.seuilPrimes)}), sinon ${pct(B.pfu.ir)}. PS ${pct(B.ps)} dans tous les cas.`,
               ],
             },
             {
               t: "qcm",
               q: "Quel est l'abattement annuel sur les gains pour un couple, après 8 ans ?",
-              choix: ["9 200 €", "4 600 €", "152 500 €", "30 500 €"],
+              choix: [euro(B.av.abattementRachatCouple), euro(B.av.abattementRachatSeul), euro(B.av.abattement990I), euro(B.av.abattement757B)],
               bonne: 0,
               exp: "4 600 € pour une personne seule, 9 200 € pour un couple soumis à imposition commune. Il se renouvelle chaque année.",
             },
             {
               t: "gap",
               phrase: "Après 8 ans, le taux d'IR réduit sur les gains est de ___ (primes ≤ 150 000 €).",
-              choix: ["7,5 %", "12,8 %", "17,2 %", "0 %"],
+              choix: [pct(B.av.tauxReduit), pct(B.pfu.ir), pct(B.ps), "0 %"],
               bonne: 0,
               exp: "7,5 % au-delà de l'abattement, pour la part des primes n'excédant pas 150 000 €. Les prélèvements sociaux (17,2 %) restent dus.",
             },
@@ -150,6 +155,7 @@ export default {
           id: "s3u1l3",
           titre: "Transmettre avec l'assurance-vie",
           emoji: "🕊️",
+          tag: "av-transmission",
           steps: [
             {
               t: "concept",
@@ -166,8 +172,8 @@ export default {
               emoji: "⚖️",
               titre: "990 I vs 757 B",
               points: [
-                "Primes versées AVANT 70 ans (art. 990 I) : 152 500 € d'abattement PAR bénéficiaire, puis 20 % jusqu'à 700 000 € taxables, 31,25 % au-delà.",
-                "Primes versées APRÈS 70 ans (art. 757 B) : abattement GLOBAL de 30 500 €, le surplus aux droits de succession — mais les gains sont exonérés.",
+                `Primes versées AVANT 70 ans (art. 990 I) : ${euro(B.av.abattement990I)} d'abattement PAR bénéficiaire, puis ${pct(B.av.taux990I)} jusqu'à 700 000 € taxables, 31,25 % au-delà.`,
+                `Primes versées APRÈS 70 ans (art. 757 B) : abattement GLOBAL de ${euro(B.av.abattement757B)}, le surplus aux droits de succession — mais les gains sont exonérés.`,
                 "Conjoint ou partenaire de PACS bénéficiaire : exonération totale (loi TEPA).",
               ],
             },
@@ -175,8 +181,8 @@ export default {
               t: "qcm",
               q: "Abattement pour des primes versées avant 70 ans ?",
               choix: [
-                "152 500 € par bénéficiaire",
-                "30 500 € au total",
+                `${euro(B.av.abattement990I)} par bénéficiaire`,
+                `${euro(B.av.abattement757B)} au total`,
                 "100 000 € par bénéficiaire",
                 "9 200 € par an",
               ],
@@ -242,6 +248,7 @@ export default {
           id: "s3u2l1",
           titre: "Le PEA",
           emoji: "🇪🇺",
+          tag: "pea-cto",
           steps: [
             {
               t: "concept",
@@ -249,7 +256,7 @@ export default {
               titre: "L'enveloppe actions par excellence",
               points: [
                 "Actions et fonds européens uniquement ; un seul PEA par personne.",
-                "Plafond de versements : 150 000 € (225 000 € en cumulant avec un PEA-PME).",
+                `Plafond de versements : ${euro(B.pea.plafond)} (${euro(B.pea.plafondAvecPme)} en cumulant avec un PEA-PME).`,
                 "Les gains ne sont jamais imposés tant qu'on ne retire pas.",
               ],
             },
@@ -266,7 +273,7 @@ export default {
             {
               t: "qcm",
               q: "Quel est le plafond de versements d'un PEA classique ?",
-              choix: ["150 000 €", "225 000 €", "100 000 €", "Illimité"],
+              choix: [euro(B.pea.plafond), euro(B.pea.plafondAvecPme), "100 000 €", "Illimité"],
               bonne: 0,
               exp: "150 000 € de versements — la valeur du plan, elle, peut croître sans limite.",
             },
@@ -303,6 +310,7 @@ export default {
           id: "s3u2l2",
           titre: "Le compte-titres",
           emoji: "🌍",
+          tag: "pea-cto",
           steps: [
             {
               t: "concept",
@@ -368,6 +376,7 @@ export default {
           id: "s3u3l1",
           titre: "La carotte fiscale",
           emoji: "🥕",
+          tag: "per",
           steps: [
             {
               t: "concept",
@@ -376,7 +385,7 @@ export default {
               points: [
                 "Les versements volontaires sont déductibles du revenu imposable.",
                 "Économie immédiate = versement × TMI.",
-                "Plafond : 10 % des revenus professionnels (max ≈ 37 094 € en 2025, min 4 637 €), reports 3 ans et mutualisation possible entre conjoints.",
+                `Plafond : ${pct(B.per.tauxRevenus)} des revenus professionnels (max ≈ ${euro(B.per.plafondMax)} en 2025, min ${euro(B.per.plafondMin)}), reports 3 ans et mutualisation possible entre conjoints.`,
               ],
             },
             {
@@ -436,6 +445,7 @@ export default {
           id: "s3u3l2",
           titre: "La sortie du PER",
           emoji: "🚪",
+          tag: "per",
           steps: [
             {
               t: "concept",

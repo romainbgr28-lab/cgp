@@ -6,13 +6,13 @@ export function ConceptCard({ step, couleur }) {
     <div className="anim-fade-up flex flex-col gap-4">
       <div className="flex items-center gap-3">
         <span className="text-5xl">{step.emoji}</span>
-        <h2 className="text-xl font-extrabold leading-tight text-duo-text">{step.titre}</h2>
+        <h2 className="text-xl font-extrabold leading-tight text-pat-ink">{step.titre}</h2>
       </div>
       <div className="flex flex-col gap-2.5">
         {step.points.map((p, i) => (
           <div
             key={i}
-            className="anim-fade-up flex items-start gap-3 rounded-2xl border-2 border-duo-line bg-white p-4"
+            className="anim-fade-up flex items-start gap-3 rounded-2xl border-2 border-pat-line bg-white p-4"
             style={{ animationDelay: `${0.08 * (i + 1)}s` }}
           >
             <span
@@ -21,7 +21,7 @@ export function ConceptCard({ step, couleur }) {
             >
               {i + 1}
             </span>
-            <p className="text-[15px] font-semibold leading-snug text-duo-text">{p}</p>
+            <p className="text-[15px] font-semibold leading-snug text-pat-ink">{p}</p>
           </div>
         ))}
       </div>
@@ -30,7 +30,7 @@ export function ConceptCard({ step, couleur }) {
           <p className="text-[11px] font-extrabold uppercase tracking-widest" style={{ color: couleur.dark }}>
             Exemple
           </p>
-          <p className="mt-1 text-[15px] font-semibold text-duo-text">{step.exemple}</p>
+          <p className="mt-1 text-[15px] font-semibold text-pat-ink">{step.exemple}</p>
         </div>
       )}
     </div>
@@ -43,7 +43,7 @@ export function QuestionBody({ step, sel, setSel, locked, correctShown }) {
     return (
       <div className="anim-fade-up flex flex-col gap-5">
         <Consigne>Vrai ou faux ?</Consigne>
-        <p className="rounded-2xl border-2 border-duo-line bg-white p-5 text-lg font-bold leading-snug text-duo-text">{step.q}</p>
+        <p className="rounded-2xl border-2 border-pat-line bg-white p-5 text-lg font-bold leading-snug text-pat-ink">{step.q}</p>
         <div className="grid grid-cols-2 gap-3">
           {[
             { v: true, label: "VRAI", emoji: "✅" },
@@ -69,11 +69,11 @@ export function QuestionBody({ step, sel, setSel, locked, correctShown }) {
     return (
       <div className="anim-fade-up flex flex-col gap-5">
         <Consigne>Complète la phrase</Consigne>
-        <p className="rounded-2xl border-2 border-duo-line bg-white p-5 text-lg font-bold leading-relaxed text-duo-text">
+        <p className="rounded-2xl border-2 border-pat-line bg-white p-5 text-lg font-bold leading-relaxed text-pat-ink">
           {avant}
           <span
             className={`mx-1 inline-block min-w-[90px] rounded-lg border-b-4 px-2 text-center ${
-              sel !== null ? "border-duo-blue bg-[#ddf4ff] text-duo-blueDark" : "border-duo-line text-transparent"
+              sel !== null ? "border-pat-brand bg-[#e6e9fb] text-pat-brandDark" : "border-pat-line text-transparent"
             }`}
           >
             {sel !== null ? step.choix[sel] : "____"}
@@ -104,16 +104,16 @@ export function QuestionBody({ step, sel, setSel, locked, correctShown }) {
           <Consigne>Cas client</Consigne>
           <div className="flex items-start gap-3">
             <span className="text-4xl">{step.emoji || "🧑‍💼"}</span>
-            <p className="rounded-2xl rounded-tl-none border-2 border-duo-line bg-white p-4 text-[15px] font-semibold italic leading-snug text-duo-text">
+            <p className="rounded-2xl rounded-tl-none border-2 border-pat-line bg-white p-4 text-[15px] font-semibold italic leading-snug text-pat-ink">
               {step.contexte}
             </p>
           </div>
-          <p className="text-lg font-extrabold text-duo-text">{step.q}</p>
+          <p className="text-lg font-extrabold text-pat-ink">{step.q}</p>
         </>
       ) : (
         <>
           <Consigne>Choisis la bonne réponse</Consigne>
-          <p className="text-lg font-extrabold leading-snug text-duo-text">{step.q}</p>
+          <p className="text-lg font-extrabold leading-snug text-pat-ink">{step.q}</p>
         </>
       )}
       <div className="flex flex-col gap-2.5">
@@ -136,7 +136,7 @@ export function QuestionBody({ step, sel, setSel, locked, correctShown }) {
 }
 
 function Consigne({ children }) {
-  return <p className="text-[12px] font-extrabold uppercase tracking-widest text-duo-muted">{children}</p>;
+  return <p className="text-[12px] font-extrabold uppercase tracking-widest text-pat-muted">{children}</p>;
 }
 
 function classesChoix(estSelection, locked, correctShown, estBonne) {
@@ -204,7 +204,7 @@ export function MatchBoard({ step, onDone }) {
 
   return (
     <div className="anim-fade-up flex flex-col gap-5">
-      <p className="text-[12px] font-extrabold uppercase tracking-widest text-duo-muted">{step.consigne || "Associe les paires"}</p>
+      <p className="text-[12px] font-extrabold uppercase tracking-widest text-pat-muted">{step.consigne || "Associe les paires"}</p>
       <div className="grid grid-cols-2 gap-3">
         <div className="flex flex-col gap-2.5">
           {gauche.map((item, i) => (

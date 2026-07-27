@@ -8,10 +8,10 @@ import { Btn, BtnGhost, Mascotte } from "../components/ui.jsx";
 // pièges). L'IA se contente de JOUER le client, puis de débriefer selon ces critères.
 
 const NIVEAUX_COULEURS = {
-  Découverte: "#58cc02",
-  Intermédiaire: "#1cb0f6",
-  Avancé: "#ff9600",
-  Expert: "#ff4b4b",
+  Découverte: "#0e9a6d",
+  Intermédiaire: "#4152b3",
+  Avancé: "#b45309",
+  Expert: "#e5495f",
 };
 
 export default function Simulation({ onSimDone }) {
@@ -24,9 +24,9 @@ function ChoixScenario({ onChoisir }) {
   const hasKey = !!getApiKey();
   return (
     <div className="mx-auto max-w-xl px-5 pt-5">
-      <Mascotte emoji="🎭">Choisis ton client. Je joue son rôle, tu joues le tien — et je te débriefe à la fin.</Mascotte>
+      <Mascotte>Choisis ton client. Je joue son rôle, tu joues le tien — et je te débriefe à la fin.</Mascotte>
       {!hasKey && (
-        <p className="mt-4 rounded-2xl bg-[#fff4d6] px-4 py-3 text-[13px] font-bold text-[#b8860b]">
+        <p className="mt-4 rounded-2xl bg-[#fdf0d5] px-4 py-3 text-[13px] font-bold text-[#8a5d05]">
           La simulation nécessite une clé API Mistral — configure-la dans l'onglet Coach ou Profil.
         </p>
       )}
@@ -41,7 +41,7 @@ function ChoixScenario({ onChoisir }) {
             <span className="text-4xl">{sc.emoji}</span>
             <span className="min-w-0 flex-1">
               <span className="flex items-center gap-2">
-                <span className="font-extrabold text-duo-text">{sc.titre}</span>
+                <span className="font-extrabold text-pat-ink">{sc.titre}</span>
                 <span
                   className="rounded-full px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-white"
                   style={{ background: NIVEAUX_COULEURS[sc.niveau] }}
@@ -49,7 +49,7 @@ function ChoixScenario({ onChoisir }) {
                   {sc.niveau}
                 </span>
               </span>
-              <span className="mt-0.5 block text-[13px] font-semibold text-duo-muted">
+              <span className="mt-0.5 block text-[13px] font-semibold text-pat-muted">
                 {sc.client.prenom}, {sc.client.age} ans — {sc.client.profession}
               </span>
             </span>
@@ -138,14 +138,14 @@ Réponds UNIQUEMENT avec ce JSON : {"note": 0 à 5, "resume": "2 phrases de synt
   return (
     <div className="mx-auto flex h-full max-w-xl flex-col px-4 pt-3">
       {/* Fiche client repliée */}
-      <div className="mb-2 flex items-center gap-3 rounded-2xl border-2 border-duo-line bg-white px-4 py-2.5">
-        <button onClick={onQuit} className="text-xl text-duo-muted" aria-label="Retour">←</button>
+      <div className="mb-2 flex items-center gap-3 rounded-2xl border-2 border-pat-line bg-white px-4 py-2.5">
+        <button onClick={onQuit} className="text-xl text-pat-muted" aria-label="Retour">←</button>
         <span className="text-2xl">{scenario.emoji}</span>
         <div className="min-w-0 flex-1">
-          <p className="truncate text-[14px] font-extrabold text-duo-text">
+          <p className="truncate text-[14px] font-extrabold text-pat-ink">
             {scenario.client.prenom}, {scenario.client.age} ans — {scenario.client.profession}
           </p>
-          <p className="truncate text-[12px] font-semibold text-duo-muted">{scenario.client.patrimoine}</p>
+          <p className="truncate text-[12px] font-semibold text-pat-muted">{scenario.client.patrimoine}</p>
         </div>
       </div>
 
@@ -154,30 +154,30 @@ Réponds UNIQUEMENT avec ce JSON : {"note": 0 à 5, "resume": "2 phrases de synt
           <div key={i} className={`anim-fade-up flex ${m.role === "conseiller" ? "justify-end" : "justify-start"}`}>
             <div
               className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-[15px] font-semibold leading-snug ${
-                m.role === "conseiller" ? "rounded-br-md bg-duo-blue text-white" : "rounded-bl-md border-2 border-duo-line bg-white text-duo-text"
+                m.role === "conseiller" ? "rounded-br-md bg-pat-brand text-white" : "rounded-bl-md border-2 border-pat-line bg-white text-pat-ink"
               }`}
             >
               {m.text}
             </div>
           </div>
         ))}
-        {enCours && <p className="pl-2 text-[13px] font-bold italic text-duo-muted">{scenario.client.prenom} réfléchit…</p>}
-        {debriefEnCours && <p className="pl-2 text-[13px] font-bold italic text-duo-muted">Le formateur analyse l'entretien…</p>}
-        {erreur && <p className="rounded-xl bg-[#ffdfe0] px-4 py-2 text-[13px] font-bold text-duo-redDark">{erreur}</p>}
+        {enCours && <p className="pl-2 text-[13px] font-bold italic text-pat-muted">{scenario.client.prenom} réfléchit…</p>}
+        {debriefEnCours && <p className="pl-2 text-[13px] font-bold italic text-pat-muted">Le formateur analyse l'entretien…</p>}
+        {erreur && <p className="rounded-xl bg-[#fde3e8] px-4 py-2 text-[13px] font-bold text-pat-coralDark">{erreur}</p>}
 
         {debrief && <Debrief debrief={debrief} onQuit={onQuit} />}
         <div ref={finRef} />
       </div>
 
       {!debrief && (
-        <div className="fixed inset-x-0 bottom-16 border-t-2 border-duo-line bg-white">
+        <div className="fixed inset-x-0 bottom-16 border-t-2 border-pat-line bg-white">
           <div className="mx-auto flex max-w-xl gap-2 px-4 py-3">
             <input
               value={saisie}
               onChange={(e) => setSaisie(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && envoyer()}
               placeholder="Ta réponse au client…"
-              className="min-w-0 flex-1 rounded-xl border-2 border-duo-line px-4 py-2.5 text-[15px] font-semibold focus:border-duo-blue focus:outline-none"
+              className="min-w-0 flex-1 rounded-xl border-2 border-pat-line px-4 py-2.5 text-[15px] font-semibold focus:border-pat-brand focus:outline-none"
             />
             <Btn onClick={envoyer} disabled={enCours || !saisie.trim()} className="px-4">➤</Btn>
             <BtnGhost onClick={lancerDebrief} disabled={messages.length < 4 || debriefEnCours} className="px-3 text-[12px]">
@@ -193,36 +193,36 @@ Réponds UNIQUEMENT avec ce JSON : {"note": 0 à 5, "resume": "2 phrases de synt
 function Debrief({ debrief, onQuit }) {
   const note = debrief.note ?? 0;
   return (
-    <div className="anim-pop mt-4 flex flex-col gap-3 rounded-3xl border-2 border-duo-line bg-white p-5">
+    <div className="anim-pop mt-4 flex flex-col gap-3 rounded-3xl border-2 border-pat-line bg-white p-5">
       <div className="flex items-center gap-3">
         <span
           className="flex h-14 w-14 items-center justify-center rounded-full text-lg font-extrabold text-white"
-          style={{ background: note >= 4 ? "#58cc02" : note >= 3 ? "#ff9600" : "#ff4b4b" }}
+          style={{ background: note >= 4 ? "#0e9a6d" : note >= 3 ? "#b45309" : "#e5495f" }}
         >
           {note}/5
         </span>
         <div>
-          <p className="text-[11px] font-extrabold uppercase tracking-widest text-duo-muted">Débrief du formateur</p>
-          <p className="text-[14px] font-bold leading-snug text-duo-text">{debrief.resume}</p>
+          <p className="text-[11px] font-extrabold uppercase tracking-widest text-pat-muted">Débrief du formateur</p>
+          <p className="text-[14px] font-bold leading-snug text-pat-ink">{debrief.resume}</p>
         </div>
       </div>
       <div className="flex flex-col gap-1.5">
         {(debrief.objectifs_atteints || []).map((o, i) => (
-          <div key={i} className={`rounded-xl px-3 py-2 text-[13px] font-semibold ${o.atteint ? "bg-[#d7ffb8] text-[#58a700]" : "bg-[#ffdfe0] text-duo-redDark"}`}>
+          <div key={i} className={`rounded-xl px-3 py-2 text-[13px] font-semibold ${o.atteint ? "bg-[#dcf5eb] text-[#067a53]" : "bg-[#fde3e8] text-pat-coralDark"}`}>
             {o.atteint ? "✅" : "❌"} {o.objectif}
             {o.commentaire && <span className="block pl-6 font-medium opacity-80">{o.commentaire}</span>}
           </div>
         ))}
         {(debrief.pieges || []).map((p, i) => (
-          <div key={i} className={`rounded-xl px-3 py-2 text-[13px] font-semibold ${p.evite ? "bg-[#d7ffb8] text-[#58a700]" : "bg-[#fff4d6] text-[#b8860b]"}`}>
+          <div key={i} className={`rounded-xl px-3 py-2 text-[13px] font-semibold ${p.evite ? "bg-[#dcf5eb] text-[#067a53]" : "bg-[#fdf0d5] text-[#8a5d05]"}`}>
             {p.evite ? "🛡️ Piège évité :" : "🪤 Piège :"} {p.piege}
           </div>
         ))}
       </div>
       {debrief.conseil_pro && (
-        <div className="rounded-xl bg-[#ddf4ff] px-3 py-2.5">
-          <p className="text-[11px] font-extrabold uppercase tracking-widest text-duo-blueDark">Ce qu'un senior aurait fait</p>
-          <p className="text-[13px] font-semibold leading-snug text-duo-text">{debrief.conseil_pro}</p>
+        <div className="rounded-xl bg-[#e6e9fb] px-3 py-2.5">
+          <p className="text-[11px] font-extrabold uppercase tracking-widest text-pat-brandDark">Ce qu'un senior aurait fait</p>
+          <p className="text-[13px] font-semibold leading-snug text-pat-ink">{debrief.conseil_pro}</p>
         </div>
       )}
       <Btn onClick={onQuit} className="w-full">Nouveau scénario</Btn>

@@ -4,6 +4,7 @@ import s3 from "./sections/s3.js";
 import s4 from "./sections/s4.js";
 import s5 from "./sections/s5.js";
 import s6 from "./sections/s6.js";
+import { tagLabel } from "./tags.js";
 
 export const SECTIONS = [s1, s2, s3, s4, s5, s6];
 
@@ -32,4 +33,76 @@ export function statsCurriculum() {
     0
   );
   return { nbSections: SECTIONS.length, nbLecons: LECONS.length, nbQuestions };
+}
+
+// ============================================================
+// EXAMEN DE SECTION ("boss") — 10 à 15 questions piochées au
+// hasard dans les leçons DÉJÀ VUES de la section. Seuil : 80 %.
+// ============================================================
+export const EXAM_SEUIL = 80; // % de bonnes réponses pour valider
+export const EXAM_NB_QUESTIONS = 12;
+
+const melanger = (arr) => {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+
+// Chaque question d'examen garde son origine (_origine) pour pouvoir
+// pointer les leçons faibles en cas d'échec et alimenter la révision.
+export function buildExam(section, progress) {
+  const lecons = section.unites.flatMap((u) => u.lecons).filter((l) => progress[l.id]);
+  const pool = lecons.flatMap((l) =>
+    l.steps
+      .map((s, i) => ({ step: s, stepIndex: i, lecon: l }))
+      .filter((x) => TYPES_QUESTIONS.includes(x.step.t))
+  );
+  const steps = melanger(pool)
+    .slice(0, EXAM_NB_QUESTIONS)
+    .map((x) => ({
+      ...x.step,
+      _origine: { leconId: x.lecon.id, leconTitre: x.lecon.titre, stepIndex: x.stepIndex, tag: x.lecon.tag },
+    }));
+  return {
+    id: "exam-" + section.id,
+    examen: true,
+    sectionId: section.id,
+    sectionTitre: section.titre,
+    titre: "Examen — " + section.titre,
+    emoji: "🏅",
+    couleur: section.couleur,
+    steps,
+  };
+}
+
+// ============================================================
+// SESSION CIBLÉE — mini-entraînement sur un tag thématique
+// (points faibles récurrents du Profil). Pas de progression
+// de parcours : XP seulement.
+// ============================================================
+export function buildSessionCible(tag) {
+  const pool = LECONS.filter((l) => l.tag === tag).flatMap((l) =>
+    l.steps
+      .map((s, i) => ({ step: s, stepIndex: i, lecon: l }))
+      .filter((x) => TYPES_QUESTIONS.includes(x.step.t))
+  );
+  const steps = melanger(pool)
+    .slice(0, 8)
+    .map((x) => ({
+      ...x.step,
+      _origine: { leconId: x.lecon.id, leconTitre: x.lecon.titre, stepIndex: x.stepIndex, tag },
+    }));
+  if (steps.length === 0) return null;
+  return {
+    id: "cible-" + tag,
+    cible: true,
+    titre: "Entraînement ciblé",
+    sectionTitre: tagLabel(tag),
+    emoji: "🎯",
+    couleur: { base: "#4152b3", dark: "#2f3d8f", light: "#e6e9fb" },
+    steps,
+  };
 }
