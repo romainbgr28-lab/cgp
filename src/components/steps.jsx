@@ -147,7 +147,7 @@ function classesChoix(estSelection, locked, correctShown, estBonne) {
   return "dim";
 }
 
-// ---------- Paires à associer (façon Duolingo) ----------
+// ---------- Paires à associer ----------
 export function MatchBoard({ step, onDone }) {
   const { gauche, droite } = useMemo(() => {
     const melange = (arr) => [...arr].sort(() => Math.random() - 0.5);

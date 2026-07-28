@@ -34,6 +34,22 @@ C'est construire, dans l'ordre, quatre compétences :
   (intervalles croissants 1 / 3 / 7 / 16 / 35 jours), et nourrit l'analyse du Coach.
 - **Gamification utile, pas gadget** : XP, streak quotidien, précision par leçon, badges.
   Objectif : créer l'habitude quotidienne, condition n°1 de la mémorisation.
+- **Examen de section (« boss »).** Une fois toutes les leçons d'une section terminées,
+  un examen de 12 questions piochées dans ces leçons conditionne le déverrouillage de la
+  section suivante (seuil 80 %). Échec → pas de pénalité, mais les leçons à l'origine des
+  erreurs sont pointées pour révision avant de retenter.
+- **Points faibles par tag thématique.** Chaque leçon porte un tag transversal (liste fermée
+  de 20, `src/data/tags.js`) ; chaque réponse alimente un compteur ok/ko par tag
+  (`tagStats` en localStorage). Le Profil affiche les tags les plus fragiles (≥ 3 réponses,
+  taux d'erreur > 0) avec un bouton d'entraînement ciblé (8 questions sur ce tag, XP only,
+  hors progression du parcours).
+- **Objection du jour.** Une carte permanente au-dessus du parcours propose, chaque jour,
+  une objection client pré-écrite (`src/data/objections.js`) avec méthode de réponse
+  A.C.R.C. (Accueillir, Creuser, Répondre, Confirmer). Roulement avec anti-répétition sur
+  10 jours ; zéro appel IA, zéro impact XP/série.
+- **Barèmes centralisés.** Toutes les valeurs fiscales (tranches IR, abattements, plafonds
+  PEA/PER, seuils IFI, barèmes de succession…) vivent dans `src/data/baremes-2026.js`,
+  avec formatteurs `euro()`/`pct()`. Un seul fichier à mettre à jour chaque loi de finances.
 
 ## 3. Le curriculum (6 sections, ~35 leçons)
 
@@ -58,7 +74,7 @@ Les chiffres cités portent la mention de leur millésime et un rappel de vérif
 | QCM | Vérification de connaissance, distracteurs plausibles |
 | Vrai / Faux | Casser les idées reçues (« l'argent est bloqué 8 ans ») |
 | Texte à trou | Ancrer les chiffres clés (taux, plafonds, durées) |
-| Paires à associer | Relier notions et définitions (façon Duolingo) |
+| Paires à associer | Relier notions et définitions |
 | Mini-cas | Décision face à un profil client, avec calcul |
 
 ## 5. Architecture technique
@@ -66,28 +82,46 @@ Les chiffres cités portent la mention de leur millésime et un rappel de vérif
 ```
 src/
   data/            ← tout le contenu pré-enregistré
-    curriculum.js    (index des 6 sections)
+    curriculum.js    (index des 6 sections + buildExam()/buildSessionCible())
+    baremes-2026.js  (valeurs fiscales centralisées, formatteurs euro()/pct())
+    tags.js          (liste fermée des 20 tags thématiques)
+    objections.js    (14 objections client + réponses A.C.R.C.)
     sections/s1..s6.js
     scenarios.js     (profils clients pré-écrits pour la simulation)
   lib/
-    storage.js       (localStorage : progression, XP, streak, erreurs, révisions)
+    storage.js       (localStorage : progression, XP, streak, erreurs, révisions,
+                       examens, tagStats, objection du jour, badges)
     ai.js            (appel Mistral — Coach & Simulation uniquement)
+  components/
+    ui.jsx           (Btn, Confetti, Embleme — écusson abstrait, ex-mascotte)
+    steps.jsx         (types d'exercices : QCM, V/F, texte à trou, paires, cas)
   screens/
-    Path.jsx         (parcours façon Duolingo : chemin de nœuds)
-    Lesson.jsx       (lecteur de leçon plein écran, pas à pas)
+    Path.jsx         (parcours : chemin de nœuds, nœud d'examen, objection du jour)
+    Lesson.jsx       (lecteur plein écran — leçon / examen / session ciblée)
     Review.jsx       (révision espacée des erreurs)
     Coach.jsx        (coach IA sur données réelles)
     Simulation.jsx   (jeu de rôle client + débrief)
-    Profile.jsx      (stats, badges, réglages)
+    Profile.jsx      (stats, badges, points faibles par tag, réglages)
+
+formation-cgp/worker/  ← Worker Cloudflare optionnel : proxy CORS pour l'API
+                          Mistral (garde la clé côté serveur, jamais dans le navigateur)
 ```
 
-L'app fonctionne **entièrement sans clé API** (tout le parcours + révisions).
-La clé Mistral, optionnelle, n'active que le Coach et la Simulation.
+L'app fonctionne **entièrement sans clé API** (tout le parcours, examens, révisions,
+points faibles, objection du jour). La clé Mistral, optionnelle, n'active que le Coach
+et la Simulation, soit directement depuis le navigateur (clé stockée en localStorage),
+soit via le Worker de `formation-cgp/worker/` (clé côté serveur, plus sûr).
 
-## 6. Pistes v2
+## 6. Identité visuelle
+
+Palette « Patrimonio » (indigo / or / corail / émeraude — cf. `tailwind.config.js`,
+tokens `pat-*`), typographie Fredoka (titres) + Inter (texte), emblème écusson abstrait
+(`Embleme` dans `src/components/ui.jsx`) sans mascotte anthropomorphe. Contrastes
+vérifiés WCAG AA.
+
+## 7. Pistes v2
 
 - Sons de feedback (correct/erreur/leçon terminée)
-- Examens de section (« boss ») conditionnant le passage
 - Mode hors-ligne complet (PWA)
-- Contenus millésimés : mise à jour annuelle des barèmes en un seul fichier
 - Classement entre collègues d'une même agence
+- Historique détaillé des tentatives d'examen (au-delà du meilleur score)
