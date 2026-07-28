@@ -68,7 +68,9 @@ export default function Path({ progress, exams, onStartLesson, onStartExam }) {
                     globalIdx += 1;
                     sectionIdx += 1;
                     const done = !!progress[lecon.id];
-                    const unlocked = ouverte && isUnlockedDansSection(sectionIdx);
+                    // Une leçon déjà terminée reste toujours rejouable, même si une
+                    // nouvelle leçon insérée avant elle n'est pas encore faite.
+                    const unlocked = ouverte && (done || isUnlockedDansSection(sectionIdx));
                     const isCurrent = unlocked && !done;
                     const offset = OFFSETS[globalIdx % OFFSETS.length];
                     const niveau = NIVEAUX_LECON[lecon.niveau];

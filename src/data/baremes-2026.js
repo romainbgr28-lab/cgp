@@ -94,4 +94,16 @@ export const BAREMES = {
 
   // --- IS (SCI à l'IS) ---
   is: { tauxReduit: 15, seuilTauxReduit: 42500, tauxNormal: 25 },
+
+  // --- LCB-FT & conformité (source : service-public.fr, CMF) ---
+  lcbft: {
+    plafondEspecesPro: 1000, // paiement en espèces à un professionnel (résident fiscal FR)
+    declarationDouane: 10000, // transport d'espèces transfrontalier à déclarer
+    beneficiaireEffectifSeuil: 25, // % de détention (capital ou droits de vote)
+    conservationAnnees: 5, // documents KYC après la fin de la relation d'affaires
+  },
+  rgpd: {
+    conservationApresRelationAnnees: 5, // alignée sur l'obligation LCB-FT
+    delaiNotificationViolationHeures: 72, // notification CNIL d'une violation
+  },
 };
