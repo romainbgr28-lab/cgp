@@ -146,6 +146,25 @@ export const BAREMES = {
   // --- IS (SCI à l'IS) ---
   is: { tauxReduit: 15, seuilTauxReduit: 42500, tauxNormal: 25 },
 
+  // --- Entreprise : rémunération, cession, holding ---
+  dividendesTNS: { seuilPctCapital: 10 }, // gérant majoritaire : fraction > 10 % du capital soumise à cotisations
+  mereFille: { exoneration: 95, quotePartFrais: 5 }, // dividendes filiale -> holding (détention >= 5 %, 2 ans)
+  cessionEntreprise: {
+    abattementDirigeantRetraite: 500000, // 150-0 D ter, PME à l'IS, départ en retraite
+    delaiRetraiteAnnees: 2, // cessation des fonctions et liquidation des droits : 2 ans avant/après
+    // Exonération des PV professionnelles (entreprises à l'IR) :
+    exo151SeptiesVentesTotal: 250000, // recettes < 250 k€ (ventes) : exonération totale (partielle jusqu'à 350 k€)
+    exo151SeptiesServicesTotal: 90000, // recettes < 90 k€ (services) : totale (partielle jusqu'à 126 k€)
+    exo238QuindeciesTotal: 500000, // valeur des éléments cédés : exonération totale (partielle jusqu'à 1 M€)
+    dureeActiviteMinAnnees: 5,
+  },
+  apportCession: {
+    // 150-0 B ter : report d'imposition sur apport de titres à une holding contrôlée
+    delaiConservationAnnees: 3, // cession par la holding avant 3 ans -> obligation de réinvestissement
+    reinvestissementPct: 60, // 60 % du produit de cession à réinvestir en activité économique
+    delaiReinvestissementMois: 24,
+  },
+
   // --- LCB-FT & conformité (source : service-public.fr, CMF) ---
   lcbft: {
     plafondEspecesPro: 1000, // paiement en espèces à un professionnel (résident fiscal FR)
