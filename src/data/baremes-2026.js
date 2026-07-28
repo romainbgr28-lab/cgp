@@ -90,6 +90,25 @@ export const BAREMES = {
     plafondLEP: 10000,
   },
 
+  // --- Actifs alternatifs ---
+  crypto: {
+    flatTax: 30, // PFU sur les plus-values de cession (particuliers, gestion non professionnelle)
+    seuilExoneration: 305, // total des cessions de l'année sous ce seuil : exonération
+  },
+  fcpiFip: {
+    tauxBase: 18, // réduction IR de droit commun (199 terdecies-0 A)
+    tauxMajore: 25, // taux majoré appliqué certains millésimes (vérifier l'année en cours)
+    tauxFipOutreMerCorse: 30,
+    dureeBlocageMinAnnees: 5, // exonération d'IR des gains des FCPR/FCPI « fiscaux »
+  },
+  metauxPrecieux: { taxeForfaitaire: 11.5 }, // 11 % + 0,5 % CRDS sur le prix de vente
+  objetsArt: {
+    taxeForfaitaire: 6.5, // 6 % + 0,5 % CRDS sur le prix de vente (> 5 000 €)
+    // Option régime réel : 36,2 % sur la PV avec abattement 5 %/an au-delà de 2 ans (exo à 22 ans)
+    abattementReelParAn: 5,
+  },
+  gff: { exoDmtgPct: 75 }, // forêts : exonération de droits (Monichon, engagement de gestion 30 ans)
+
   // --- Crédit immobilier (règles HCSF juridiquement contraignantes + loi Lemoine) ---
   credit: {
     tauxEffortMax: 35, // % des revenus, ASSURANCE COMPRISE
