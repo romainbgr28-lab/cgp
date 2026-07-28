@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { SECTIONS, LECONS, EXAM_SEUIL } from "../data/curriculum.js";
+import { SECTIONS, EXAM_SEUIL, PREREQUIS, sectionOuverte, NIVEAUX_LECON } from "../data/curriculum.js";
 import { OBJECTIONS } from "../data/objections.js";
 import { objectionDuJour, getObjVues, markObjVue } from "../lib/storage.js";
 import { Btn } from "../components/ui.jsx";
@@ -13,21 +13,7 @@ export default function Path({ progress, exams, onStartLesson, onStartExam }) {
     currentRef.current?.scrollIntoView({ block: "center", behavior: "instant" });
   }, []);
 
-  // Déverrouillage linéaire : une leçon est jouable si la précédente est terminée…
-  const firstLockedIndex = LECONS.findIndex((l) => !progress[l.id]);
-  const isUnlockedLineaire = (globalIdx) => firstLockedIndex === -1 || globalIdx <= firstLockedIndex;
-
-  // …ET si sa section est ouverte : examen de la section précédente réussi.
-  // Clause « grand-père » : un utilisateur qui avait déjà commencé la section
-  // avant l'introduction des examens n'est jamais re-verrouillé.
-  const sectionOuverte = (si) => {
-    if (si === 0) return true;
-    const prev = SECTIONS[si - 1];
-    if (exams[prev.id]?.reussi) return true;
-    return SECTIONS[si].unites.flatMap((u) => u.lecons).some((l) => progress[l.id]);
-  };
-
-  let globalIdx = -1;
+  let globalIdx = -1; // uniquement pour le tracé sinueux (OFFSETS)
 
   return (
     <div className="pb-8">
@@ -36,7 +22,14 @@ export default function Path({ progress, exams, onStartLesson, onStartExam }) {
       {SECTIONS.map((section, si) => {
         const lecons = section.unites.flatMap((u) => u.lecons);
         const faites = lecons.filter((l) => progress[l.id]).length;
-        const ouverte = sectionOuverte(si);
+        // Ouverture par graphe de prérequis (examen requis réussi ou clause grand-père)
+        const ouverte = sectionOuverte(section.id, exams, progress);
+        const prereq = SECTIONS.find((s) => s.id === PREREQUIS[section.id]);
+        // Déverrouillage linéaire À L'INTÉRIEUR de la section : une leçon est
+        // jouable si toutes les précédentes de la même section sont terminées.
+        const firstLockedInSection = lecons.findIndex((l) => !progress[l.id]);
+        const isUnlockedDansSection = (idx) => firstLockedInSection === -1 || idx <= firstLockedInSection;
+        let sectionIdx = -1;
         const toutesFaites = faites === lecons.length;
         const exam = exams[section.id];
         return (
@@ -53,9 +46,9 @@ export default function Path({ progress, exams, onStartLesson, onStartExam }) {
                 {section.emoji} {section.titre}
               </h2>
               <p className="text-[13px] font-semibold opacity-80">{section.sousTitre}</p>
-              {!ouverte && (
+              {!ouverte && prereq && (
                 <p className="mt-1.5 inline-block rounded-full bg-white/20 px-2.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wider">
-                  🔒 Réussis l'examen de la section {si} pour débloquer
+                  🔒 Réussis l'examen « {prereq.titre} » pour débloquer
                 </p>
               )}
             </div>
@@ -73,11 +66,12 @@ export default function Path({ progress, exams, onStartLesson, onStartExam }) {
                 <div className="flex flex-col items-center gap-7">
                   {unite.lecons.map((lecon) => {
                     globalIdx += 1;
-                    const idx = globalIdx;
+                    sectionIdx += 1;
                     const done = !!progress[lecon.id];
-                    const unlocked = ouverte && isUnlockedLineaire(idx);
+                    const unlocked = ouverte && isUnlockedDansSection(sectionIdx);
                     const isCurrent = unlocked && !done;
-                    const offset = OFFSETS[idx % OFFSETS.length];
+                    const offset = OFFSETS[globalIdx % OFFSETS.length];
+                    const niveau = NIVEAUX_LECON[lecon.niveau];
                     const perfect = done && progress[lecon.id].precision >= 100;
                     // Taille du médaillon selon l'importance de la leçon (densité de questions)
                     const nbQuestions = lecon.steps.filter((s) => s.t !== "concept").length;
@@ -109,6 +103,14 @@ export default function Path({ progress, exams, onStartLesson, onStartExam }) {
                           <span className={unlocked ? "" : "grayscale opacity-60"}>{done ? (perfect ? "👑" : "⭐") : unlocked ? lecon.emoji : "🔒"}</span>
                         </button>
                         <p className="mt-1.5 max-w-[110px] text-center text-[11px] font-bold leading-tight text-pat-muted">{lecon.titre}</p>
+                        {niveau && (
+                          <p
+                            className="mx-auto mt-1 w-fit rounded-full px-2 py-px text-center text-[9px] font-extrabold uppercase tracking-wider"
+                            style={{ background: niveau.bg, color: niveau.fg }}
+                          >
+                            {niveau.label}
+                          </p>
+                        )}
                       </div>
                     );
                   })}

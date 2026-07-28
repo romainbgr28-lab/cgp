@@ -20,6 +20,7 @@ export default {
           titre: "Qui hérite ?",
           emoji: "👪",
           tag: "succession",
+          niveau: "intermediaire",
           steps: [
             {
               t: "concept",
@@ -92,6 +93,7 @@ export default {
           titre: "Les droits de succession",
           emoji: "🧾",
           tag: "succession",
+          niveau: "avance",
           steps: [
             {
               t: "concept",
@@ -161,6 +163,7 @@ export default {
           titre: "Anticiper la succession",
           emoji: "🗺️",
           tag: "succession",
+          niveau: "avance",
           steps: [
             {
               t: "concept",
@@ -224,6 +227,7 @@ export default {
           titre: "Donner de son vivant",
           emoji: "🎀",
           tag: "donations",
+          niveau: "intermediaire",
           steps: [
             {
               t: "concept",
@@ -288,6 +292,7 @@ export default {
           titre: "La donation-partage",
           emoji: "🧰",
           tag: "donations",
+          niveau: "avance",
           steps: [
             {
               t: "concept",
@@ -354,6 +359,7 @@ export default {
           titre: "Usufruit et nue-propriété",
           emoji: "✂️",
           tag: "demembrement",
+          niveau: "avance",
           steps: [
             {
               t: "concept",
@@ -416,6 +422,7 @@ export default {
           titre: "Le pacte Dutreil",
           emoji: "🏭",
           tag: "transmission-entreprise",
+          niveau: "expert",
           steps: [
             {
               t: "concept",

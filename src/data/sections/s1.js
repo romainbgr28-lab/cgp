@@ -20,6 +20,7 @@ export default {
           titre: "Le rôle du CGP",
           emoji: "💼",
           tag: "relation-client",
+          niveau: "debutant",
           steps: [
             {
               t: "concept",
@@ -110,6 +111,7 @@ export default {
           titre: "Le cadre réglementaire",
           emoji: "⚖️",
           tag: "deontologie-kyc",
+          niveau: "debutant",
           steps: [
             {
               t: "concept",
@@ -200,6 +202,7 @@ export default {
           titre: "Photographier un patrimoine",
           emoji: "📸",
           tag: "bilan-profil",
+          niveau: "debutant",
           steps: [
             {
               t: "concept",
@@ -273,6 +276,7 @@ export default {
           titre: "Objectifs et profil de risque",
           emoji: "🎯",
           tag: "bilan-profil",
+          niveau: "debutant",
           steps: [
             {
               t: "concept",
@@ -356,6 +360,7 @@ export default {
           titre: "Les régimes matrimoniaux",
           emoji: "💍",
           tag: "couple-regimes",
+          niveau: "intermediaire",
           steps: [
             {
               t: "concept",
@@ -433,6 +438,7 @@ export default {
           titre: "PACS et concubinage",
           emoji: "🤝",
           tag: "couple-regimes",
+          niveau: "intermediaire",
           steps: [
             {
               t: "concept",

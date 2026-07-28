@@ -1,3 +1,4 @@
+import s0 from "./sections/s0.js";
 import s1 from "./sections/s1.js";
 import s2 from "./sections/s2.js";
 import s3 from "./sections/s3.js";
@@ -6,7 +7,47 @@ import s5 from "./sections/s5.js";
 import s6 from "./sections/s6.js";
 import { tagLabel } from "./tags.js";
 
-export const SECTIONS = [s1, s2, s3, s4, s5, s6];
+export const SECTIONS = [s0, s1, s2, s3, s4, s5, s6];
+
+// ============================================================
+// GRAPHE DE DÉBLOCAGE DES SECTIONS — remplace l'ordre linéaire.
+// Une section s'ouvre quand l'examen de sa section prérequise est
+// réussi (null = toujours ouverte). Cibles de la refonte :
+//   s0→s1→s2→s3→s4→s5→s6 (chaîne socle) ; s8 après s3 ;
+//   s7/s9/s11 après s6 ; s10 après s7.
+// ============================================================
+export const PREREQUIS = {
+  s0: null,
+  s1: "s0",
+  s2: "s1",
+  s3: "s2",
+  s4: "s3",
+  s5: "s4",
+  s6: "s5",
+  s7: "s6",
+  s8: "s3",
+  s9: "s6",
+  s10: "s7",
+  s11: "s6",
+};
+
+// Clause « grand-père » : un utilisateur qui avait déjà commencé une
+// section avant l'introduction du verrou n'est jamais re-verrouillé.
+export function sectionOuverte(sectionId, exams, progress) {
+  const prereq = PREREQUIS[sectionId];
+  if (!prereq) return true;
+  if (exams[prereq]?.reussi) return true;
+  const section = SECTIONS.find((s) => s.id === sectionId);
+  return section ? section.unites.flatMap((u) => u.lecons).some((l) => progress[l.id]) : false;
+}
+
+// Niveaux de difficulté (purement informatifs, aucun effet sur le déblocage)
+export const NIVEAUX_LECON = {
+  debutant: { label: "Débutant", bg: "#dcf5eb", fg: "#067a53" },
+  intermediaire: { label: "Intermédiaire", bg: "#e6e9fb", fg: "#2f3d8f" },
+  avance: { label: "Avancé", bg: "#fdf0d5", fg: "#a16207" },
+  expert: { label: "Expert", bg: "#fde3e8", fg: "#c23349" },
+};
 
 // Liste plate et ordonnée de toutes les leçons (ordre = ordre de déverrouillage)
 export const LECONS = SECTIONS.flatMap((section) =>

@@ -20,6 +20,7 @@ export default {
           titre: "Le barème progressif",
           emoji: "📊",
           tag: "tmi-ir",
+          niveau: "debutant",
           steps: [
             {
               t: "concept",
@@ -101,6 +102,7 @@ export default {
           titre: "Le quotient familial",
           emoji: "👨‍👩‍👧",
           tag: "tmi-ir",
+          niveau: "intermediaire",
           steps: [
             {
               t: "concept",
@@ -170,6 +172,7 @@ export default {
           titre: "Réductions, crédits, déductions",
           emoji: "🧾",
           tag: "reductions-credits",
+          niveau: "intermediaire",
           steps: [
             {
               t: "concept",
@@ -250,6 +253,7 @@ export default {
           titre: "La flat tax (PFU)",
           emoji: "⚡",
           tag: "pfu-ps",
+          niveau: "intermediaire",
           steps: [
             {
               t: "concept",
@@ -324,6 +328,7 @@ export default {
           titre: "Plus-values et prélèvements sociaux",
           emoji: "📈",
           tag: "pfu-ps",
+          niveau: "intermediaire",
           steps: [
             {
               t: "concept",
@@ -392,6 +397,7 @@ export default {
           titre: "L'impôt sur la fortune immobilière",
           emoji: "🏛️",
           tag: "ifi",
+          niveau: "avance",
           steps: [
             {
               t: "concept",

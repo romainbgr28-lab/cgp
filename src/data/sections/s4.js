@@ -20,6 +20,7 @@ export default {
           titre: "Les revenus fonciers",
           emoji: "🏠",
           tag: "foncier",
+          niveau: "intermediaire",
           steps: [
             {
               t: "concept",
@@ -82,6 +83,7 @@ export default {
           titre: "Le déficit foncier",
           emoji: "📉",
           tag: "foncier",
+          niveau: "avance",
           steps: [
             {
               t: "concept",
@@ -152,6 +154,7 @@ export default {
           titre: "Le LMNP",
           emoji: "🛋️",
           tag: "lmnp",
+          niveau: "intermediaire",
           steps: [
             {
               t: "concept",
@@ -214,6 +217,7 @@ export default {
           titre: "Meublé : pièges et nouveautés",
           emoji: "⚠️",
           tag: "lmnp",
+          niveau: "avance",
           steps: [
             {
               t: "concept",
@@ -277,6 +281,7 @@ export default {
           titre: "SCI : IR ou IS ?",
           emoji: "🏢",
           tag: "sci",
+          niveau: "avance",
           steps: [
             {
               t: "concept",
@@ -347,6 +352,7 @@ export default {
           titre: "La plus-value immobilière",
           emoji: "🔑",
           tag: "pv-immo",
+          niveau: "intermediaire",
           steps: [
             {
               t: "concept",

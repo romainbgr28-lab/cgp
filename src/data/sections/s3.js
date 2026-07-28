@@ -20,6 +20,7 @@ export default {
           titre: "Le couteau suisse de l'épargne",
           emoji: "🇨🇭",
           tag: "av-rachats",
+          niveau: "debutant",
           steps: [
             {
               t: "concept",
@@ -87,6 +88,7 @@ export default {
           titre: "La fiscalité des rachats",
           emoji: "💸",
           tag: "av-rachats",
+          niveau: "intermediaire",
           steps: [
             {
               t: "concept",
@@ -156,6 +158,7 @@ export default {
           titre: "Transmettre avec l'assurance-vie",
           emoji: "🕊️",
           tag: "av-transmission",
+          niveau: "avance",
           steps: [
             {
               t: "concept",
@@ -249,6 +252,7 @@ export default {
           titre: "Le PEA",
           emoji: "🇪🇺",
           tag: "pea-cto",
+          niveau: "intermediaire",
           steps: [
             {
               t: "concept",
@@ -311,6 +315,7 @@ export default {
           titre: "Le compte-titres",
           emoji: "🌍",
           tag: "pea-cto",
+          niveau: "intermediaire",
           steps: [
             {
               t: "concept",
@@ -377,6 +382,7 @@ export default {
           titre: "La carotte fiscale",
           emoji: "🥕",
           tag: "per",
+          niveau: "intermediaire",
           steps: [
             {
               t: "concept",
@@ -446,6 +452,7 @@ export default {
           titre: "La sortie du PER",
           emoji: "🚪",
           tag: "per",
+          niveau: "avance",
           steps: [
             {
               t: "concept",

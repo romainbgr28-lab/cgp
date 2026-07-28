@@ -17,6 +17,7 @@ export default {
           titre: "Les classes d'actifs",
           emoji: "🧺",
           tag: "bilan-profil",
+          niveau: "debutant",
           steps: [
             {
               t: "concept",
@@ -80,6 +81,7 @@ export default {
           titre: "Construire une allocation",
           emoji: "🏗️",
           tag: "bilan-profil",
+          niveau: "intermediaire",
           steps: [
             {
               t: "concept",
@@ -153,6 +155,7 @@ export default {
           titre: "L'art de la découverte",
           emoji: "🔍",
           tag: "relation-client",
+          niveau: "intermediaire",
           steps: [
             {
               t: "concept",
@@ -220,6 +223,7 @@ export default {
           titre: "Traiter les objections",
           emoji: "🛡️",
           tag: "relation-client",
+          niveau: "intermediaire",
           steps: [
             {
               t: "concept",
