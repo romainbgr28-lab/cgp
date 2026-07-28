@@ -90,6 +90,20 @@ export const BAREMES = {
     plafondLEP: 10000,
   },
 
+  // --- Crédit immobilier (règles HCSF juridiquement contraignantes + loi Lemoine) ---
+  credit: {
+    tauxEffortMax: 35, // % des revenus, ASSURANCE COMPRISE
+    dureeMaxAnnees: 25, // 27 ans avec différé (VEFA, gros travaux)
+    margeFlexibilite: 20, // % de la production que les banques peuvent déroger
+    iraMoisInterets: 6, // indemnité de remboursement anticipé : 6 mois d'intérêts…
+    iraPlafondPct: 3, // …plafonnée à 3 % du capital restant dû (le plus faible des deux)
+  },
+  lemoine: {
+    seuilSansQuestionnaire: 200000, // part assurée par tête, fin de prêt avant 60 ans
+    ageLimiteFinPret: 60,
+    droitOubliAnnees: 5, // cancers et hépatite C : plus de déclaration après 5 ans
+  },
+
   // --- Protection sociale (source : ameli.fr, service-public.fr) ---
   ij: { tauxSalaire: 50, carenceJours: 3, dureeMaxAnnees: 3 }, // IJ maladie du salarié (plafond ≈ 1,4 SMIC depuis 2025)
   invalidite: { cat1Pct: 30, cat2Pct: 50, cat3Pct: 50 }, // % du salaire annuel moyen (cat. 3 : + majoration tierce personne)
