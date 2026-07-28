@@ -90,6 +90,25 @@ export const BAREMES = {
     plafondLEP: 10000,
   },
 
+  // --- Situations de vie (divorce, handicap, décès) ---
+  prestationCompensatoire: {
+    reductionPct: 25, // réduction d'IR si capital versé dans les 12 mois…
+    plafondAssiette: 30500, // …sur une assiette plafonnée (réduction max ≈ 7 625 €)
+    delaiCapitalMois: 12, // au-delà : déductible chez le débiteur, imposable chez le créancier
+  },
+  droitPartage: 1.1, // % sur l'actif net partagé (divorces/séparations ; 2,5 % pour les autres partages)
+  handicap: {
+    abattementSuccession: 159325, // abattement spécifique, CUMULABLE avec l'abattement de parenté
+    epargneHandicapReductionPct: 25, // rente-survie / épargne handicap : réduction d'IR sur les primes
+    epargneHandicapPlafond: 1525, // plafond annuel de primes (+ 300 € par enfant à charge)
+    majorationParEnfant: 300,
+  },
+  deces: {
+    fraisObsequesPrelevables: 5910, // prélevables sur le compte du défunt (montant revalorisé périodiquement)
+    declarationSuccessionMois: 6, // décès en France métropolitaine
+    delaiOptionHeritierMois: 4, // délai minimal avant qu'un héritier puisse être sommé d'opter
+  },
+
   // --- Actifs alternatifs ---
   crypto: {
     flatTax: 30, // PFU sur les plus-values de cession (particuliers, gestion non professionnelle)

@@ -9,9 +9,10 @@ import s7 from "./sections/s7.js";
 import s8 from "./sections/s8.js";
 import s9 from "./sections/s9.js";
 import s10 from "./sections/s10.js";
+import s11 from "./sections/s11.js";
 import { tagLabel } from "./tags.js";
 
-export const SECTIONS = [s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10];
+export const SECTIONS = [s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11];
 
 // ============================================================
 // GRAPHE DE DÉBLOCAGE DES SECTIONS — remplace l'ordre linéaire.
