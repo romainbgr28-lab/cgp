@@ -27,8 +27,12 @@ C'est construire, dans l'ordre, quatre compétences :
     pièges attendus), elle joue le client puis débriefe ta prestation de conseiller.
 - **Micro-learning séquencé.** Une leçon = 8 à 10 écrans d'une seule idée chacun.
   Jamais de bloc de texte : cartes-concepts courtes, puis exercices immédiats.
-- **Progression verrouillée.** On ne déverrouille la fiscalité de l'assurance-vie
-  qu'après avoir maîtrisé le barème de l'IR : chaque brique s'appuie sur la précédente.
+- **Progression verrouillée par graphe.** Le socle (S0 à S6) se déverrouille en chaîne
+  linéaire, examen après examen. Au-delà, le graphe se ramifie selon les prérequis réels :
+  la prévoyance (S8) ne demande que la fiscalité de base (examen S3) quand le patrimoine
+  professionnel (S7) et les situations de vie (S9, S11) exigent le socle complet (examen S6),
+  et les actifs alternatifs (S10) s'appuient sur la fiscalité d'entreprise (examen S7).
+  Voir `PREREQUIS` et `sectionOuverte()` dans `src/data/curriculum.js`.
 - **Erreur = matière première.** Chaque mauvaise réponse est requeuée dans la leçon
   (on la revoit avant de finir), puis entre dans le paquet de révision espacée
   (intervalles croissants 1 / 3 / 7 / 16 / 35 jours), et nourrit l'analyse du Coach.
@@ -39,10 +43,13 @@ C'est construire, dans l'ordre, quatre compétences :
   section suivante (seuil 80 %). Échec → pas de pénalité, mais les leçons à l'origine des
   erreurs sont pointées pour révision avant de retenter.
 - **Points faibles par tag thématique.** Chaque leçon porte un tag transversal (liste fermée
-  de 20, `src/data/tags.js`) ; chaque réponse alimente un compteur ok/ko par tag
+  de 45, `src/data/tags.js`) ; chaque réponse alimente un compteur ok/ko par tag
   (`tagStats` en localStorage). Le Profil affiche les tags les plus fragiles (≥ 3 réponses,
   taux d'erreur > 0) avec un bouton d'entraînement ciblé (8 questions sur ce tag, XP only,
   hors progression du parcours).
+- **Niveaux de difficulté.** Chaque leçon porte un niveau informatif (débutant /
+  intermédiaire / avancé / expert, `NIVEAUX_LECON`), affiché en pastille sous son nœud
+  dans le parcours. Purement indicatif : aucun effet sur le déverrouillage.
 - **Objection du jour.** Une carte permanente au-dessus du parcours propose, chaque jour,
   une objection client pré-écrite (`src/data/objections.js`) avec méthode de réponse
   A.C.R.C. (Accueillir, Creuser, Répondre, Confirmer). Roulement avec anti-répétition sur
@@ -51,16 +58,29 @@ C'est construire, dans l'ordre, quatre compétences :
   PEA/PER, seuils IFI, barèmes de succession…) vivent dans `src/data/baremes-2026.js`,
   avec formatteurs `euro()`/`pct()`. Un seul fichier à mettre à jour chaque loi de finances.
 
-## 3. Le curriculum (6 sections, ~35 leçons)
+## 3. Le curriculum (12 sections, 128 leçons, 535 questions)
 
-| # | Section | Contenu | Pourquoi à cette place |
-|---|---------|---------|------------------------|
-| 1 | **Fondamentaux** | métier & déontologie, cadre réglementaire (ORIAS, AMF, DER, KYC), bilan patrimonial, profil de risque, régimes matrimoniaux, PACS/concubinage | La posture et le cadre avant la technique |
-| 2 | **Fiscalité du particulier** | barème IR & TMI, quotient familial, réductions/crédits/déductions, PFU vs barème, plus-values, prélèvements sociaux, IFI | La TMI est la clé de lecture de tout le reste |
-| 3 | **Enveloppes d'épargne** | assurance-vie (mécanique, rachats, 990 I / 757 B, clause bénéficiaire), PEA, CTO, PER (déduction, sortie) | Le cœur de l'activité de conseil |
-| 4 | **Immobilier patrimonial** | revenus fonciers, déficit foncier, LMNP micro/réel, pièges LF 2025, SCI IR/IS, plus-values immobilières | Première classe d'actifs des Français |
-| 5 | **Transmission** | dévolution & réserve, droits de succession, conjoint survivant, donations, donation-partage, démembrement (art. 669), Dutreil | La matière la plus technique, en dernier socle |
-| 6 | **Conseil en pratique** | classes d'actifs, construire une allocation, mener la découverte, traiter les objections | La synthèse : transformer le savoir en conseil |
+### Le socle (S0 → S6), linéaire
+
+| # | Section | Leçons | Contenu | Pourquoi à cette place |
+|---|---------|--------|---------|------------------------|
+| 0 | **Les bases avant tout** | 6 | vocabulaire (patrimoine, actif/passif), épargner vs investir, triangle risque/rendement/horizon, intérêts composés, inflation, familles d'actifs | Construire l'intuition avant tout chiffre fiscal |
+| 1 | **Les fondamentaux** | 13 | métier & déontologie, statuts (CIF/IAS/IOBSP), RC pro, devoir de conseil, rémunérations, RGPD, LCB-FT, bilan patrimonial, profil de risque, régimes matrimoniaux | La posture et le cadre avant la technique |
+| 2 | **Fiscalité du particulier** | 12 | barème IR & TMI, décote, CEHR, RCM, stock-options/AGA, PFU vs barème, IFI, exit tax, expatriés/impatriés, conventions fiscales | La TMI est la clé de lecture de tout le reste |
+| 3 | **Enveloppes d'épargne** | 13 | assurance-vie, capitalisation, PEA, CTO, épargne salariale, PER (dont TNS), livrets, comptes à terme | Le cœur de l'activité de conseil |
+| 4 | **Immobilier patrimonial** | 13 | fonciers, LMNP, SCI, plus-values, résidence principale, SCPI/OPCI, crowdfunding, nue-propriété à l'achat, viager | Première classe d'actifs des Français |
+| 5 | **Transmission** | 13 | succession, régimes matrimoniaux, donations, démembrement, quasi-usufruit, Dutreil, trusts, mandat de protection, tutelle/curatelle, assurance décès | La matière la plus technique, en dernier socle |
+| 6 | **Conseil en pratique** | 9 | classes d'actifs, allocation, entretien découverte, rapport de préconisation, suivi/revue annuelle, relation multi-générationnelle | La synthèse : transformer le savoir en conseil |
+
+### Au-delà du socle, en graphe (déblocage détaillé en §2)
+
+| # | Section | Leçons | Contenu | Prérequis |
+|---|---------|--------|---------|-----------|
+| 8 | **Prévoyance & protection sociale** | 10 | IJ, invalidité, contrats de prévoyance, complémentaire santé, retraite Agirc-Arrco, décote/surcote, dépendance/APA, réversion | Examen S3 |
+| 7 | **Patrimoine professionnel** | 12 | EI vs société, TNS vs assimilé, SCI des murs, salaire/dividendes, holding, cession d'entreprise (500 k€, 151 septies), apport-cession, transmission d'entreprise | Examen S6 |
+| 9 | **Crédit & financement** | 8 | mécanique du crédit, loi Lemoine, HCSF, renégociation, effet de levier, crédit lombard, in fine | Examen S6 |
+| 11 | **Situations de vie** | 9 | divorce, prestation compensatoire, famille recomposée, expatriation/retour, handicap, décès d'un proche | Examen S6 |
+| 10 | **Actifs alternatifs** | 10 | private equity, FCPI/FIP, dette privée, cryptoactifs, or, art, forêts/vignobles, poche satellite, arnaques | Examen S7 |
 
 Chaque section se termine naturellement par des leçons plus applicatives (mini-cas chiffrés).
 Les chiffres cités portent la mention de leur millésime et un rappel de vérification
@@ -82,11 +102,12 @@ Les chiffres cités portent la mention de leur millésime et un rappel de vérif
 ```
 src/
   data/            ← tout le contenu pré-enregistré
-    curriculum.js    (index des 6 sections + buildExam()/buildSessionCible())
-    baremes-2026.js  (valeurs fiscales centralisées, formatteurs euro()/pct())
-    tags.js          (liste fermée des 20 tags thématiques)
+    curriculum.js    (index des 12 sections + PREREQUIS/sectionOuverte() +
+                      buildExam()/buildSessionCible() + NIVEAUX_LECON)
+    baremes-2026.js  (valeurs fiscales et sociales centralisées, formatteurs euro()/pct())
+    tags.js          (liste fermée des 45 tags thématiques)
     objections.js    (14 objections client + réponses A.C.R.C.)
-    sections/s1..s6.js
+    sections/s0..s11.js
     scenarios.js     (profils clients pré-écrits pour la simulation)
   lib/
     storage.js       (localStorage : progression, XP, streak, erreurs, révisions,

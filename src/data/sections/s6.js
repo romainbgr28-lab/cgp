@@ -74,6 +74,18 @@ export default {
               bonne: 0,
               exp: "« Ne pas mettre tous ses œufs dans le même panier » : le seul repas gratuit de la finance, disait Markowitz.",
             },
+            {
+              t: "qcm",
+              q: "Un portefeuille 100 % actions et un portefeuille 100 % obligations sont-ils également risqués ?",
+              choix: [
+                "Non : les actions ont une volatilité et une espérance de gain nettement supérieures aux obligations",
+                "Oui, exactement le même risque",
+                "Les obligations sont toujours plus risquées",
+                "Le risque ne dépend que du montant investi",
+              ],
+              bonne: 0,
+              exp: "Chaque classe d'actifs a son propre profil rendement/risque. Composer un portefeuille, c'est doser ce mélange selon l'horizon et la tolérance du client — jamais choisir un seul extrême.",
+            },
           ],
         },
         {
@@ -539,6 +551,13 @@ export default {
               ],
               bonne: 0,
               exp: "La donation est LE moment d'entrer en relation avec la génération suivante, à l'initiative du client. Le remploi (assurance-vie des enfants, apport immobilier…) prolonge le conseil au lieu de voir les fonds s'évaporer.",
+            },
+            {
+              t: "gap",
+              phrase: "Un rendez-vous familial ne se propose jamais par surprise : il doit toujours être suggéré et son périmètre choisi par le ___.",
+              choix: ["client", "conjoint", "notaire", "cabinet"],
+              bonne: 0,
+              exp: "Le client reste maître de ce qui se partage et avec qui. Le conseiller propose le cadre ; il n'impose jamais la présence ni le contenu de la discussion familiale.",
             },
           ],
         },

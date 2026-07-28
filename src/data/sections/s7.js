@@ -132,6 +132,13 @@ export default {
               bonne: 0,
               exp: "Le statut social se choisit sur la SITUATION, pas sur une règle générale : fin de carrière + besoin de valider des droits retraite solides + risque santé = l'assimilé salarié se défend, malgré son coût.",
             },
+            {
+              t: "gap",
+              phrase: "En SARL, le gérant est dit ___ (et donc TNS) dès lors qu'il détient, seul ou avec sa famille, plus de la moitié des parts.",
+              choix: ["majoritaire", "minoritaire", "égalitaire", "salarié"],
+              bonne: 0,
+              exp: "Le seuil de 50 % des parts (calculé en intégrant conjoint et enfants mineurs) fait basculer le gérant en TNS. Un gérant minoritaire ou égalitaire, lui, relève du régime assimilé salarié.",
+            },
           ],
         },
         {

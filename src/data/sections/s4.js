@@ -424,6 +424,13 @@ export default {
               bonne: 0,
               exp: "La SCI permet de donner par tranches calées sur les abattements (100 000 €/enfant/15 ans), avec décote de minorité possible, sans perdre le contrôle (gérance statutaire).",
             },
+            {
+              t: "gap",
+              phrase: "Une SCI à l'IS peut choisir librement de repasser à l'IR : c'est ___.",
+              choix: ["faux, l'option à l'IS est en principe irrévocable", "vrai, à tout moment", "vrai, une fois tous les 5 ans", "vrai, sur simple courrier"],
+              bonne: 0,
+              exp: "L'option pour l'IS est un aller sans retour (sauf exceptions très encadrées) : décision à ne jamais prendre à la légère, d'où l'importance de simuler le cycle complet AVANT de basculer.",
+            },
           ],
         },
         {

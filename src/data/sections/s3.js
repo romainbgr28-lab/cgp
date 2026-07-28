@@ -439,6 +439,13 @@ export default {
               bonne: 0,
               exp: "Un seul PEA par personne et titres européens uniquement. Nuance de pro : certains ETF synthétiques éligibles PEA répliquent des indices US — mais en direct, c'est le CTO.",
             },
+            {
+              t: "gap",
+              phrase: "Sur un CTO, une moins-value réalisée est reportable et imputable sur des plus-values de même nature pendant ___ ans.",
+              choix: ["10", "3", "1", "indéfiniment"],
+              bonne: 0,
+              exp: "Un outil d'optimisation de fin d'année trop souvent négligé : compenser une ligne perdante avec une ligne gagnante, ou en réserve pour les 10 prochaines années.",
+            },
           ],
         },
         {
