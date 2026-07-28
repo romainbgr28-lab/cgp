@@ -90,6 +90,30 @@ export const BAREMES = {
     plafondLEP: 10000,
   },
 
+  // --- Protection sociale (source : ameli.fr, service-public.fr) ---
+  ij: { tauxSalaire: 50, carenceJours: 3, dureeMaxAnnees: 3 }, // IJ maladie du salarié (plafond ≈ 1,4 SMIC depuis 2025)
+  invalidite: { cat1Pct: 30, cat2Pct: 50, cat3Pct: 50 }, // % du salaire annuel moyen (cat. 3 : + majoration tierce personne)
+  capitalDecesSecu: 3910, // capital décès forfaitaire du salarié (montant 2024, revalorisé chaque année)
+
+  // --- Retraite obligatoire (réforme 2023, générations 1965 et suivantes) ---
+  retraite: {
+    ageLegal: 64,
+    ageTauxPleinAuto: 67, // taux plein automatique quel que soit le nombre de trimestres
+    trimestresRequis: 172, // 43 annuités
+    tauxPlein: 50, // % du salaire annuel moyen (régime général)
+    meilleuresAnnees: 25, // SAM calculé sur les 25 meilleures années
+    decoteParTrimestre: 1.25, // % de taux perdu par trimestre manquant (max 20 trimestres)
+    surcoteParTrimestre: 1.25, // % de pension gagné par trimestre au-delà du taux plein
+  },
+
+  // --- Pension de réversion ---
+  reversion: {
+    regimeGeneralPct: 54, // % de la pension du défunt (condition de ressources)
+    plafondRessourcesAnnuel: 24710, // personne seule, 2025 (2 080 × SMIC horaire)
+    ageMinimum: 55,
+    agircArrcoPct: 60, // sans condition de ressources, perdue en cas de remariage
+  },
+
   // --- Immobilier locatif ---
   foncier: {
     seuilMicro: 15000,
