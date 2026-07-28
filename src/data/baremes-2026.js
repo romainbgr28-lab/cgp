@@ -134,7 +134,12 @@ export const BAREMES = {
     donFamilial: 31865, // art. 790 G, donateur < 80 ans, donataire majeur
     ageMaxDonateur: 80,
   },
-  usufruit669: { u51_60: 50, u61_70: 40, u71_80: 30, u81_90: 20 }, // % de la pleine propriété
+  // Barème fiscal de l'usufruit viager (art. 669 CGI), % de la pleine propriété,
+  // selon l'âge de l'usufruitier (tranches complètes) :
+  usufruit669: {
+    u0_20: 90, u21_30: 80, u31_40: 70, u41_50: 60,
+    u51_60: 50, u61_70: 40, u71_80: 30, u81_90: 20, u91plus: 10,
+  },
   dutreil: { exoneration: 75 },
   dons: { reduction: 66 }, // dons aux associations d'intérêt général
 
