@@ -33,6 +33,27 @@ export const BAREMES = {
   pfu: { ir: 12.8, ps: 17.2, total: 30 },
   ps: 17.2, // CSG 9,2 + CRDS 0,5 + solidarité 7,5
   abattementDividendes: 40, // option barème uniquement
+  rcm: {
+    csgDeductible: 6.8, // uniquement en cas d'option pour le barème
+    // Dispense d'acompte de 12,8 % à la source, selon le RFR de N-2 :
+    dispenseDividendesRFR: 50000, // célibataire (75 000 € pour un couple)
+    dispenseDividendesRFRCouple: 75000,
+    dispenseInteretsRFR: 25000, // célibataire (50 000 € pour un couple)
+    dispenseInteretsRFRCouple: 50000,
+  },
+
+  // --- Calcul de l'impôt : décote et hauts revenus ---
+  decote: { seuilImpotCelib: 1964, seuilImpotCouple: 3248 }, // impôt brut sous lequel la décote s'applique
+  cehr: { seuilCelib: 250000, seuilCouple: 500000, taux1: 3, taux2: 4 }, // sur le revenu fiscal de référence
+
+  // --- Actionnariat salarié (attributions depuis 2018, régime « Macron ») ---
+  aga: { abattement: 50, plafondAbattement: 300000 }, // gain d'acquisition d'actions gratuites
+
+  // --- Mobilité internationale ---
+  exitTax: { seuilParticipations: 800000, conservationCourteAnnees: 2, conservationLongueAnnees: 5 },
+  nonResidents: { tauxMinimum: 20, tauxMinimumSup: 30 }, // taux minimum d'imposition des revenus de source française
+  impatries: { exonerationMaxAnnees: 8 }, // régime de l'article 155 B
+  residenceFiscale: { seuilSejourJours: 183 },
 
   // --- Assurance-vie ---
   av: {
