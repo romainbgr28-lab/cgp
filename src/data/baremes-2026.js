@@ -111,6 +111,11 @@ export const BAREMES = {
     exoPSAnnees: 30,
     seuilSurtaxe: 50000, // surtaxe 2 à 6 % au-delà
   },
+  // Fraction imposable de la rente viagère à titre onéreux (art. 158-6 CGI),
+  // selon l'âge du crédirentier au premier versement :
+  renteViagere: { moins50: 70, de50a59: 50, de60a69: 40, apres69: 30 },
+  // OPCI : ratios réglementaires de composition
+  opci: { minImmobilier: 60, minLiquidites: 5 },
 
   // --- IFI ---
   ifi: { seuilEntree: 1300000, seuilCalcul: 800000, abattementRP: 30 },
