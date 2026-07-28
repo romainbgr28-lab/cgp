@@ -69,6 +69,26 @@ export const BAREMES = {
   // --- PEA / PER ---
   pea: { plafond: 150000, plafondAvecPme: 225000 },
   per: { plafondMax: 37094, plafondMin: 4637, tauxRevenus: 10 }, // 10 % des revenus pro, plafonds 2025
+  perTNS: { tauxSupplement: 15 }, // + 15 % sur la fraction du bénéfice entre 1 et 8 PASS
+
+  // --- Plafond annuel de la Sécurité sociale (référence transversale) ---
+  pass: 47100, // PASS 2025
+
+  // --- Épargne salariale (source : service-public.fr) ---
+  epargneSalariale: {
+    abondementPeePct: 8, // % du PASS : abondement employeur max sur PEE (≈ 3 768 €)
+    abondementPercoPct: 16, // % du PASS : max sur PERECO (≈ 7 536 €)
+    abondementMaxMultiple: 300, // % du versement du salarié (3 fois au plus)
+    versementMaxPctRemuneration: 25, // versements volontaires : 25 % de la rémunération annuelle brute
+    blocagePeeAnnees: 5,
+  },
+
+  // --- Livrets réglementés (plafonds de versement) ---
+  livrets: {
+    plafondLivretA: 22950,
+    plafondLDDS: 12000,
+    plafondLEP: 10000,
+  },
 
   // --- Immobilier locatif ---
   foncier: {
