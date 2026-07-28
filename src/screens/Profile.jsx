@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SECTIONS, LECONS, statsCurriculum } from "../data/curriculum.js";
-import { BADGES, getBadges, getApiKey, setApiKey, stClearAll, getTagStats } from "../lib/storage.js";
+import { BADGES, getBadges, getApiKey, setApiKey, getWorkerUrl, setWorkerUrl, stClearAll, getTagStats } from "../lib/storage.js";
 import { tagLabel } from "../data/tags.js";
 import { Btn } from "../components/ui.jsx";
 
@@ -28,6 +28,8 @@ export default function Profile({ progress, xp, streak, onReset, onTrainTag }) {
   const faibles = pointsFaibles();
   const [key, setKey] = useState(getApiKey());
   const [keySaved, setKeySaved] = useState(false);
+  const [worker, setWorker] = useState(getWorkerUrl());
+  const [workerSaved, setWorkerSaved] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
 
   const niveau = [...NIVEAUX].reverse().find((n) => xp >= n.seuil);
@@ -163,6 +165,34 @@ export default function Profile({ progress, xp, streak, onReset, onTrainTag }) {
             }}
           >
             {keySaved ? "✓" : "OK"}
+          </Btn>
+        </div>
+      </div>
+
+      <div className="mt-3 rounded-2xl border-2 border-pat-line bg-white p-4">
+        <p className="text-[13px] font-extrabold text-pat-ink">URL du Worker (proxy Mistral, optionnel)</p>
+        <p className="mt-0.5 text-[12px] font-semibold text-pat-muted">
+          Si renseignée, elle remplace la clé ci-dessus : la clé Mistral reste côté serveur (voir formation-cgp/worker/ pour le déploiement).
+        </p>
+        <div className="mt-2.5 flex gap-2">
+          <input
+            type="url"
+            value={worker}
+            onChange={(e) => {
+              setWorker(e.target.value);
+              setWorkerSaved(false);
+            }}
+            placeholder="https://formation-cgp-proxy.….workers.dev"
+            className="min-w-0 flex-1 rounded-xl border-2 border-pat-line px-3 py-2 text-[14px] font-semibold focus:border-pat-brand focus:outline-none"
+          />
+          <Btn
+            className="px-4 text-[13px]"
+            onClick={() => {
+              setWorkerUrl(worker);
+              setWorkerSaved(true);
+            }}
+          >
+            {workerSaved ? "✓" : "OK"}
           </Btn>
         </div>
       </div>

@@ -61,14 +61,10 @@ Si vous recevez une erreur mentionnant `MISTRAL_API_KEY`, reprenez l'étape 3.
 
 ### 5. Brancher le front
 
-Dans `src/App.jsx`, remplacez la constante en haut du fichier :
-
-```js
-const WORKER_URL_PAR_DEFAUT = "https://formation-cgp-proxy.<votre-sous-domaine>.workers.dev";
-```
-
-L'écran de démarrage propose aussi un champ optionnel « URL du Worker » qui
-permet de changer de proxy sans recompiler.
+Dans l'app, ouvrez **Profil → Réglages → « URL du Worker »** et collez l'URL
+copiée à l'étape 2. Aucune recompilation nécessaire : l'URL est stockée dans
+le navigateur et prime sur la clé API locale (voir `src/lib/ai.js`). Pour
+revenir à l'appel direct, videz simplement le champ.
 
 ## Mise à jour ultérieure
 

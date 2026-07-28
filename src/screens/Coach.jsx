@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { callAI } from "../lib/ai.js";
-import { getApiKey, setApiKey, getErreurs, getProgress, getXp, calcStreak, getDeck } from "../lib/storage.js";
+import { callAI, aiDisponible } from "../lib/ai.js";
+import { setApiKey, getErreurs, getProgress, getXp, calcStreak, getDeck } from "../lib/storage.js";
 import { SECTIONS, LECONS } from "../data/curriculum.js";
 import { Btn, Mascotte } from "../components/ui.jsx";
 
@@ -43,7 +43,7 @@ const SUGGESTIONS = [
 ];
 
 export default function Coach() {
-  const [hasKey, setHasKey] = useState(!!getApiKey());
+  const [hasKey, setHasKey] = useState(aiDisponible());
   const [keyInput, setKeyInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [saisie, setSaisie] = useState("");
@@ -70,7 +70,7 @@ export default function Coach() {
       ]);
       setMessages((m) => [...m, { role: "assistant", content: rep.trim() }]);
     } catch (e) {
-      setErreur(e.message === "NO_KEY" ? "Configure ta clé API pour parler au coach." : e.message);
+      setErreur(e.message === "NO_KEY" ? "Configure ta clé API (ou l'URL du Worker) pour parler au coach." : e.message);
     } finally {
       setEnCours(false);
     }
@@ -101,7 +101,9 @@ export default function Coach() {
           >
             Activer le coach
           </Btn>
-          <p className="mt-2 text-center text-[12px] font-semibold text-pat-muted">Clé stockée uniquement dans ton navigateur.</p>
+          <p className="mt-2 text-center text-[12px] font-semibold text-pat-muted">
+            Clé stockée uniquement dans ton navigateur. Alternative plus sûre : déployer le proxy Worker et renseigner son URL dans Profil → Réglages (la clé reste alors côté serveur).
+          </p>
         </div>
       </div>
     );

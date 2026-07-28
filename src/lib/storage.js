@@ -22,7 +22,7 @@ export function stClearAll() {
   const keys = [];
   for (let i = 0; i < window.localStorage.length; i++) {
     const k = window.localStorage.key(i);
-    if (k && k.startsWith(PREFIX) && k !== PREFIX + "apiKey") keys.push(k);
+    if (k && k.startsWith(PREFIX) && k !== PREFIX + "apiKey" && k !== PREFIX + "workerUrl") keys.push(k);
   }
   keys.forEach((k) => window.localStorage.removeItem(k));
 }
@@ -214,3 +214,8 @@ export function bumpRevisions() {
 // ---- Clé API (Coach & Simulation uniquement) ----
 export const getApiKey = () => stGet("apiKey", "");
 export const setApiKey = (k) => stSet("apiKey", k.trim());
+
+// ---- URL du Worker Cloudflare (proxy Mistral, clé côté serveur) ----
+// Si renseignée, elle prime sur la clé navigateur (voir lib/ai.js).
+export const getWorkerUrl = () => stGet("workerUrl", "");
+export const setWorkerUrl = (u) => stSet("workerUrl", u.trim().replace(/\/+$/, ""));

@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { SCENARIOS } from "../data/scenarios.js";
-import { callAI, parseJSON } from "../lib/ai.js";
-import { getApiKey } from "../lib/storage.js";
+import { callAI, parseJSON, aiDisponible } from "../lib/ai.js";
 import { Btn, BtnGhost, Mascotte } from "../components/ui.jsx";
 
 // Simulation client : les SCÉNARIOS sont pré-écrits (profil, objectifs pédagogiques,
@@ -21,13 +20,13 @@ export default function Simulation({ onSimDone }) {
 }
 
 function ChoixScenario({ onChoisir }) {
-  const hasKey = !!getApiKey();
+  const hasKey = aiDisponible();
   return (
     <div className="mx-auto max-w-xl px-5 pt-5">
       <Mascotte>Choisis ton client. Je joue son rôle, tu joues le tien — et je te débriefe à la fin.</Mascotte>
       {!hasKey && (
         <p className="mt-4 rounded-2xl bg-[#fdf0d5] px-4 py-3 text-[13px] font-bold text-[#8a5d05]">
-          La simulation nécessite une clé API Mistral — configure-la dans l'onglet Coach ou Profil.
+          La simulation nécessite une clé API Mistral (ou l'URL du Worker) — configure-la dans l'onglet Coach ou Profil.
         </p>
       )}
       <div className="mt-5 flex flex-col gap-3 pb-6">
