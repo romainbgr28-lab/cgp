@@ -28,8 +28,9 @@ export const SCENARIOS = [
       "Employer du jargon (UC, PFU, arbitrage) sans l'expliquer",
       "Oublier de vérifier son épargne de précaution et ses projets courts (elle envisage peut-être un achat immobilier)",
     ],
+    produits: ["Livret A conservé (épargne de précaution)", "Assurance-vie multisupport (fonds euro + petite poche UC)"],
     recommandationFinale:
-      "Vérifier d'abord qu'elle dispose d'une épargne de précaution suffisante (3 à 6 mois de charges) et qu'aucun projet à court terme n'existe, puis orienter le surplus vers une assurance-vie multisupport : une base en fonds euro sécurisé, complétée d'une petite poche d'unités de compte pour l'horizon long — jamais un produit dynamique proposé d'entrée sans découverte.",
+      "Garder le Livret A comme épargne de précaution (3 à 6 mois de charges) : c'est le seul support qui offre une disponibilité immédiate sans risque, adapté à cette fonction précise. Pour le surplus, une assurance-vie multisupport (base en fonds euro, petite poche d'UC) : c'est l'enveloppe la plus adaptée à un horizon long et un profil novice — fiscalité douce après 8 ans, versements/rachats libres, choix progressif du niveau de risque. Jamais un produit dynamique (UC pures, PER) tant qu'aucun horizon ni projet n'a été vérifié.",
   },
   {
     id: "sc2",
@@ -56,8 +57,9 @@ export const SCENARIOS = [
       "Le laisser imposer un cadre incompatible avec le devoir de conseil",
       "Rater l'énorme angle mort : rien n'est prévu pour protéger sa famille si l'entreprise ou lui-même font défaut",
     ],
+    produits: ["Séparation trésorerie pro/perso (préalable)", "Contrat de prévoyance dirigeant (IJ/invalidité/décès)", "Assurance-vie ou compte à terme pour la part personnelle disponible"],
     recommandationFinale:
-      "Avant tout placement des 50 000 €, faire clarifier et séparer la trésorerie professionnelle de l'épargne personnelle réellement disponible, vérifier la protection de sa famille (prévoyance dirigeant, régime matrimonial) et l'organisation de l'entreprise en cas de coup dur — puis seulement ensuite proposer un placement sécurisé à horizon court/moyen pour la part personnelle libre.",
+      "Avant tout placement, faire séparer la trésorerie professionnelle (qui doit rester disponible pour l'entreprise, sur un compte à terme ou une solution court terme dédiée) de l'épargne personnelle réellement excédentaire. Mettre en place un contrat de prévoyance dirigeant (IJ, invalidité, décès) : en tant que TNS ou assimilé, il n'a aujourd'hui aucun filet en cas de coup dur, un point plus urgent que le placement lui-même. Seule la part personnelle clairement identifiée peut ensuite aller sur une assurance-vie multisupport à horizon moyen — jamais la trésorerie professionnelle.",
   },
   {
     id: "sc3",
@@ -84,8 +86,9 @@ export const SCENARIOS = [
       "La brusquer vers les UC sans traiter la blessure de 2008",
       "Oublier l'angle transmission (assurance-vie avant 70 ans pour sa fille : la fenêtre est ouverte)",
     ],
+    produits: ["Assurance-vie (ouverte/alimentée avant ses 70 ans, fille bénéficiaire)", "Allocation fonds euro dominant + petite poche UC prudentes (10-20 %)"],
     recommandationFinale:
-      "Expliquer le coût réel du « zéro risque » (rendement net d'inflation des livrets sur-dotés), puis proposer une diversification TRÈS progressive et limitée (majorité fonds euro, petite poche d'UC prudentes), compatible avec son horizon de 6 ans — et ouvrir sans tarder une assurance-vie à son nom avant ses 70 ans, sa fille comme bénéficiaire, pour profiter de l'abattement de 152 500 €.",
+      "Ouvrir ou alimenter sans tarder une assurance-vie à son nom, sa fille désignée bénéficiaire : avant ses 70 ans, l'abattement de 152 500 € par bénéficiaire s'applique — une fenêtre qui ne se rattrape pas après. Sur ce contrat, une allocation très majoritairement en fonds euro (sécurité, cohérente avec son refus du risque) complétée d'une petite poche d'UC prudentes (10-20 %) pour limiter l'érosion par l'inflation sur son horizon de 6 ans avant la retraite — jamais de PER (blocage jusqu'à la retraite inadapté à son besoin de disponibilité) ni de promesse de rendement garanti supérieur au fonds euro.",
   },
   {
     id: "sc4",
@@ -112,8 +115,9 @@ export const SCENARIOS = [
       "Ignorer le PER alors que sa TMI à 41 % en fait le levier le plus efficace",
       "Le froisser frontalement en dénigrant son collègue",
     ],
+    produits: ["PER individuel (prioritaire)", "Investissement locatif nu ou LMNP — à étudier ensuite, hors Pinel"],
     recommandationFinale:
-      "Écarter le Pinel (dispositif éteint pour les nouveaux investissements depuis fin 2024) et recommander en priorité l'ouverture d'un PER, dont la déduction à 41 % de TMI est immédiatement plus efficace — un investissement immobilier locatif éventuel ne devant être envisagé qu'ensuite, et sur ses qualités intrinsèques, jamais sur sa seule carotte fiscale.",
+      "PER individuel en priorité : à TMI 41 %, chaque euro versé économise 41 centimes d'impôt immédiat, un levier plus puissant et plus simple qu'aucun dispositif immobilier défiscalisant. Écarter le Pinel, éteint pour les nouveaux investissements depuis fin 2024 et de toute façon dépendant d'un montage souvent médiocre. Un investissement locatif (nu ou LMNP) pourra être étudié dans un second temps, mais sur ses qualités intrinsèques (emplacement, rendement réel) — jamais parce qu'un collègue l'a fait ou pour sa seule carotte fiscale.",
   },
   {
     id: "sc5",
@@ -140,8 +144,9 @@ export const SCENARIOS = [
       "Proposer de tout donner (il a besoin de revenus et de sécurité)",
       "Dire qu'après 70 ans « tout est fichu » — le 757 B (30 500 € + gains exonérés) reste utile",
     ],
+    produits: ["Assurance-vie (avant 70 ans, 152 500 €/bénéficiaire)", "Donation avec réserve d'usufruit sur le locatif", "Don familial de sommes d'argent (art. 790 G) aux petits-enfants"],
     recommandationFinale:
-      "Agir avant ses 70 ans en ouvrant/alimentant une assurance-vie avec une partie de ses liquidités (152 500 € d'abattement par bénéficiaire), compléter par une donation avec réserve d'usufruit sur le locatif (il conserve les loyers) et un don familial de sommes d'argent (790 G) aux petits-enfants — en le rassurant : le démembrement transmet sans le priver de revenus ni de sécurité.",
+      "Assurance-vie ouverte ou alimentée avant ses 70 ans avec une partie de ses liquidités : c'est la fenêtre la plus urgente, 152 500 € par bénéficiaire hors droits de succession, qui se ferme dans quelques mois. Donation du bien locatif avec réserve d'usufruit : il continue de percevoir les loyers, seule la nue-propriété (moins taxée) est transmise — répond directement à sa peur de « se démunir ». Don familial de sommes d'argent (art. 790 G, exonéré sous conditions) aux petits-enfants pour la part la plus simple à mettre en œuvre. Corriger au passage l'idée reçue : après 70 ans, l'abattement classique de 30 500 € (757 B) reste disponible, rien n'est « fichu ».",
   },
   {
     id: "sc6",
@@ -168,8 +173,9 @@ export const SCENARIOS = [
       "Présenter la SCI à l'IS comme « la solution magique » sans parler de la sortie (PV lourde, dividendes taxés)",
       "Rester sur l'immobilier et rater l'angle mort successoral du PACS",
     ],
+    produits: ["LMNP au régime réel (plutôt que SCI à l'IS)", "Testament ou donation entre partenaires pacsés (urgent)"],
     recommandationFinale:
-      "L'orienter vers le LMNP au régime réel en l'alertant sur la réintégration des amortissements dans la plus-value depuis la réforme 2025 (ce qui nuance l'intérêt d'une SCI à l'IS sur la sortie) — et traiter en parallèle l'angle mort successoral : rédiger un testament ou une donation entre partenaires pacsés, faute de quoi son partenaire n'hériterait de rien.",
+      "LMNP au régime réel pour le 3e investissement : l'amortissement reste un vrai levier à l'entrée, mais depuis la réforme 2025 il est réintégré dans la plus-value à la revente — un point à exposer clairement, qui nuance l'intérêt d'une SCI à l'IS souvent présentée à tort comme automatiquement supérieure sur ce type de dossier. En parallèle, rédiger un testament ou une donation entre partenaires pacsés : sans cela, son partenaire n'hériterait de rien en cas de décès, un angle mort bien plus urgent que le choix du statut locatif.",
   },
   {
     id: "sc7",
@@ -196,8 +202,9 @@ export const SCENARIOS = [
       "Proposer un schéma qui entame la réserve de la fille aînée (conflit garanti)",
       "Esquiver l'émotionnel : ici, le technique ne passe que si l'affectif est entendu",
     ],
+    produits: ["Correction de la clause bénéficiaire de l'assurance-vie existante (urgent)", "Donation entre époux (dans la limite de la réserve)", "Donation-partage anticipée entre les deux enfants"],
     recommandationFinale:
-      "Corriger en urgence la clause bénéficiaire de l'assurance-vie de 200 000 € (actuellement au nom de l'ex-épouse) au profit de la nouvelle épouse, puis structurer l'équilibre familial avec une donation entre époux compatible avec la réserve de chaque enfant et une donation-partage anticipée entre les deux enfants, pour objectiver l'équité et désamorcer le sentiment d'injustice de la fille aînée.",
+      "Corriger IMMÉDIATEMENT la clause bénéficiaire de l'assurance-vie de 200 000 € : elle désigne encore l'ex-épouse, un oubli qui priverait totalement la nouvelle épouse en cas de décès — l'urgence numéro un, avant toute autre discussion. Donation entre époux ensuite, dans la limite compatible avec la réserve de chaque enfant (pas d'usufruit à 100 % possible ici, la fille du premier lit a des droits réservataires). Donation-partage anticipée entre les deux enfants pour objectiver l'équité entre eux de son vivant, plutôt que de laisser le sujet exploser au décès.",
   },
   {
     id: "sc8",
@@ -224,7 +231,8 @@ export const SCENARIOS = [
       "Laisser passer une affirmation fiscale fausse par peur du conflit",
       "Dérouler un argumentaire produit — exactement ce qu'il reproche aux deux précédents",
     ],
+    produits: ["PER Madelin (retraite du libéral)", "Pacte Dutreil (sous réserve de qualifier la holding animatrice)", "Revue de l'assiette IFI"],
     recommandationFinale:
-      "Ne pas entrer dans la surenchère commerciale mais démontrer la valeur par un diagnostic complet et chiffré : qualification d'animation de la holding pour le Dutreil, exposition à l'IFI et pistes d'allègement, stratégie de retraite du libéral (PER Madelin, valorisation de la patientèle) — en corrigeant avec tact ses éventuelles approximations sur le CGI plutôt que de les laisser passer.",
+      "PER Madelin pour sa retraite de profession libérale : à sa TMI la plus haute, la déduction est immédiatement le levier le plus rentable, avant même de parler de placement. Vérifier ensuite si sa holding est réellement animatrice (conventions, prestations documentées) : c'est la condition pour sécuriser un futur pacte Dutreil sur la transmission de ses parts. Enfin, une revue précise de son assiette IFI (dettes déductibles, éventuel démembrement d'actifs) plutôt qu'un produit isolé. C'est ce diagnostic structuré — pas une promesse de meilleur taux — qui répond à sa vraie question : « qu'est-ce que vous m'apportez que les autres n'ont pas ».",
   },
 ];

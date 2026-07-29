@@ -253,7 +253,16 @@ function Debrief({ debrief, scenario, onQuit }) {
       {scenario?.recommandationFinale && (
         <div className="rounded-xl bg-[#e6e9fb] px-3 py-2.5">
           <p className="text-[11px] font-extrabold uppercase tracking-widest text-pat-brandDark">Recommandation finale attendue</p>
-          <p className="text-[13px] font-semibold leading-snug text-pat-ink">{scenario.recommandationFinale}</p>
+          {(scenario.produits || []).length > 0 && (
+            <div className="mt-1.5 flex flex-wrap gap-1.5">
+              {scenario.produits.map((p, i) => (
+                <span key={i} className="rounded-full bg-pat-brand px-2.5 py-1 text-[12px] font-extrabold text-white">
+                  {p}
+                </span>
+              ))}
+            </div>
+          )}
+          <p className="mt-2 text-[13px] font-semibold leading-snug text-pat-ink">{scenario.recommandationFinale}</p>
         </div>
       )}
       {debrief.conseil_pro && (
@@ -429,7 +438,16 @@ function DebriefMystere({ debrief, onQuit }) {
       {evaluation?.recommandationCorrecte && (
         <div className="rounded-xl bg-[#e6e9fb] px-3 py-2.5">
           <p className="text-[11px] font-extrabold uppercase tracking-widest text-pat-brandDark">Recommandation correcte attendue</p>
-          <p className="text-[13px] font-semibold leading-snug text-pat-ink">{evaluation.recommandationCorrecte}</p>
+          {(evaluation.produits || []).length > 0 && (
+            <div className="mt-1.5 flex flex-wrap gap-1.5">
+              {evaluation.produits.map((p, i) => (
+                <span key={i} className="rounded-full bg-pat-brand px-2.5 py-1 text-[12px] font-extrabold text-white">
+                  {p}
+                </span>
+              ))}
+            </div>
+          )}
+          <p className="mt-2 text-[13px] font-semibold leading-snug text-pat-ink">{evaluation.recommandationCorrecte}</p>
         </div>
       )}
       {debrief.conseil_pro && (

@@ -159,6 +159,7 @@ export const MOTIFS_CACHES = [
     ],
     niveauDifficulte: 3,
     chiffresAutorises: ["Le PACS ne confère aucun droit successoral automatique, contrairement au mariage."],
+    produits: ["Testament (ou donation entre partenaires)", "Assurance-vie avec clause bénéficiaire dédiée"],
     recommandationCorrecte:
       "Avant tout placement, faire rédiger un testament (ou une donation entre partenaires) désignant le partenaire pacsé comme légataire, à compléter éventuellement par une assurance-vie avec clause bénéficiaire dédiée.",
     criteresValidation: [
@@ -183,6 +184,7 @@ export const MOTIFS_CACHES = [
     ],
     niveauDifficulte: 3,
     chiffresAutorises: [],
+    produits: ["Mise à jour de la clause bénéficiaire (avenant sur les contrats existants)"],
     recommandationCorrecte:
       "Faire vérifier et corriger en priorité la clause bénéficiaire de tous les contrats d'assurance-vie existants avant toute nouvelle souscription ou optimisation.",
     criteresValidation: [
@@ -206,6 +208,7 @@ export const MOTIFS_CACHES = [
     ],
     niveauDifficulte: 4,
     chiffresAutorises: ["Un pacte Dutreil bien mis en place permet une exonération de 75 % de la valeur des titres transmis, sous conditions d'engagement de conservation."],
+    produits: ["Pacte Dutreil", "Donation-partage anticipée des titres de l'entreprise"],
     recommandationCorrecte:
       "Engager sans attendre un pacte Dutreil couplé à une donation-partage anticipée des titres de l'entreprise, avant toute optimisation de trésorerie de court terme.",
     criteresValidation: [
@@ -230,6 +233,7 @@ export const MOTIFS_CACHES = [
     ],
     niveauDifficulte: 2,
     chiffresAutorises: [],
+    produits: ["Livret / fonds euro (part destinée au projet immobilier)", "Supports dynamiques (UC/actions) uniquement sur le reste, horizon long"],
     recommandationCorrecte:
       "Isoler la part d'épargne destinée au projet immobilier proche (moins de 3 ans) sur des supports sécurisés (livrets, fonds euro), et ne proposer des supports dynamiques que sur le reste, à horizon long.",
     criteresValidation: [
@@ -253,6 +257,7 @@ export const MOTIFS_CACHES = [
     ],
     niveauDifficulte: 3,
     chiffresAutorises: ["Un indépendant sans contrat de prévoyance individuelle perçoit une indemnisation très limitée, voire nulle, en cas d'arrêt de travail prolongé, contrairement à un salarié."],
+    produits: ["Contrat de prévoyance (arrêt de travail / invalidité)"],
     recommandationCorrecte:
       "Mettre en place un contrat de prévoyance (arrêt de travail / invalidité) adapté à son statut d'indépendant avant toute stratégie de développement du capital.",
     criteresValidation: [
@@ -276,6 +281,7 @@ export const MOTIFS_CACHES = [
     ],
     niveauDifficulte: 3,
     chiffresAutorises: ["Dissimuler des biens communs lors d'un divorce constitue un recel de communauté, sanctionné civilement (perte de la part sur le bien recelé)."],
+    produits: ["Aucun produit — refus de dissimulation + orientation vers avocat/notaire"],
     recommandationCorrecte:
       "Refuser toute solution visant à dissimuler des avoirs communs, expliquer le risque de recel de communauté, et orienter le client vers son avocat/notaire pour un traitement transparent et régulier de la procédure.",
     criteresValidation: [
@@ -300,6 +306,7 @@ export const MOTIFS_CACHES = [
     ],
     niveauDifficulte: 4,
     chiffresAutorises: ["Toute donation doit respecter la réserve héréditaire des enfants ; un déséquilibre trop marqué et non compensé peut être contesté lors de la succession."],
+    produits: ["Donation-partage (ou donations compensées entre les branches)"],
     recommandationCorrecte:
       "Proposer un cadre transparent et documenté (donation-partage, ou donations compensées entre les branches) qui permette d'aider le petit-enfant concerné sans rompre l'équilibre entre les enfants, en respectant la réserve héréditaire.",
     criteresValidation: [
@@ -323,6 +330,7 @@ export const MOTIFS_CACHES = [
     ],
     niveauDifficulte: 2,
     chiffresAutorises: [],
+    produits: ["Livret A / LDDS (épargne de précaution)"],
     recommandationCorrecte:
       "Constituer d'abord une épargne de précaution (plusieurs mois de charges courantes, sur un support liquide et sécurisé) avant tout investissement, même modeste.",
     criteresValidation: [
@@ -346,6 +354,7 @@ export const MOTIFS_CACHES = [
     ],
     niveauDifficulte: 4,
     chiffresAutorises: ["La réserve héréditaire empêche de déshériter totalement un enfant en France ; seule la quotité disponible peut être répartie librement."],
+    produits: ["Assurance-vie (dans la limite de la quotité disponible)", "Donation dans le cadre légal de la quotité disponible"],
     recommandationCorrecte:
       "Expliquer les limites imposées par la réserve héréditaire, proposer d'utiliser la quotité disponible et les outils adaptés (assurance-vie, donation) dans ce cadre légal, et recommander d'anticiper le sujet plutôt que de le laisser exploser au décès.",
     criteresValidation: [
@@ -370,6 +379,7 @@ export const MOTIFS_CACHES = [
     ],
     niveauDifficulte: 3,
     chiffresAutorises: [],
+    produits: ["Séparation trésorerie pro/perso (préalable)", "Placement uniquement sur l'excédent personnel identifié"],
     recommandationCorrecte:
       "Faire d'abord clarifier et séparer la trésorerie professionnelle de l'épargne personnelle disponible, et ne placer durablement que la part réellement excédentaire et personnelle.",
     criteresValidation: [
@@ -393,6 +403,7 @@ export const MOTIFS_CACHES = [
     ],
     niveauDifficulte: 3,
     chiffresAutorises: ["Une assurance emprunteur à quotité incomplète (par exemple 50 % sur la tête de chaque emprunteur au lieu de 100 %) laisse le conjoint survivant devoir rembourser la part non couverte."],
+    produits: ["Révision des quotités et garanties de l'assurance emprunteur"],
     recommandationCorrecte:
       "Faire réexaminer en priorité les quotités et garanties de l'assurance emprunteur du crédit immobilier avant de mettre en place une épargne dédiée aux enfants.",
     criteresValidation: [
@@ -416,6 +427,7 @@ export const MOTIFS_CACHES = [
     ],
     niveauDifficulte: 4,
     chiffresAutorises: ["Tout compte bancaire détenu à l'étranger par un résident fiscal français doit être déclaré chaque année à l'administration fiscale (formulaire dédié), sous peine de sanctions."],
+    produits: ["Régularisation déclarative du compte étranger (formulaire 3916)"],
     recommandationCorrecte:
       "Orienter en priorité le client vers une régularisation de sa situation déclarative (déclaration du compte étranger), avant toute réorganisation patrimoniale plus large.",
     criteresValidation: [
@@ -439,6 +451,7 @@ export const MOTIFS_CACHES = [
     ],
     niveauDifficulte: 5,
     chiffresAutorises: ["Un mandat de protection future permet de désigner à l'avance qui gérera ses affaires en cas de perte de capacité, sans attendre une mesure judiciaire de tutelle ou curatelle."],
+    produits: ["Mandat de protection future", "Procurations bancaires"],
     recommandationCorrecte:
       "Proposer d'anticiper la situation par un mandat de protection future (et les procurations bancaires utiles) avant toute autre optimisation patrimoniale, pour éviter une mesure judiciaire subie plus tard.",
     criteresValidation: [
@@ -462,6 +475,7 @@ export const MOTIFS_CACHES = [
     ],
     niveauDifficulte: 3,
     chiffresAutorises: [],
+    produits: ["Remboursement des crédits à la consommation (avant tout investissement)"],
     recommandationCorrecte:
       "Prioriser l'apurement des crédits à la consommation en cours avant tout investissement, le coût de ces crédits étant presque toujours supérieur au rendement espéré d'un placement.",
     criteresValidation: [
@@ -527,7 +541,7 @@ export function evaluerRecommandation(motif, texteConseiller) {
   const nbValides = criteres.filter((c) => c.valide).length;
   const total = criteres.length;
   const verdict = nbValides === total ? "conforme" : nbValides > 0 ? "partiel" : "hors-sujet";
-  return { criteres, nbValides, total, verdict, recommandationCorrecte: motif.recommandationCorrecte };
+  return { criteres, nbValides, total, verdict, recommandationCorrecte: motif.recommandationCorrecte, produits: motif.produits };
 }
 
 // Système du débrief : Mistral ne fait que FORMULER un verdict déjà calculé, il ne le décide jamais.
