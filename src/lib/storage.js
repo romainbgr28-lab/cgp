@@ -219,3 +219,32 @@ export const setApiKey = (k) => stSet("apiKey", k.trim());
 // Si renseignée, elle prime sur la clé navigateur (voir lib/ai.js).
 export const getWorkerUrl = () => stGet("workerUrl", "");
 export const setWorkerUrl = (u) => stSet("workerUrl", u.trim().replace(/\/+$/, ""));
+
+// ---- Mode test : débloquer tous les niveaux ----
+export function unlockAllForTesting(lecons, sections) {
+  // Débloquer toutes les leçons avec progression complète
+  const progress = {};
+  lecons.forEach((lecon) => {
+    progress[lecon.id] = {
+      precision: 100,
+      xp: 100,
+      date: new Date().toISOString(),
+      fois: 1,
+    };
+  });
+  stSet("progress", progress);
+
+  // Débloquer tous les examens avec 100% réussi
+  const exams = {};
+  sections.forEach((section) => {
+    exams[section.id] = {
+      note: 100,
+      reussi: true,
+      date: new Date().toISOString(),
+      fois: 1,
+    };
+  });
+  stSet("exams", exams);
+
+  console.log("✅ Tous les niveaux débloqués pour le test !");
+}

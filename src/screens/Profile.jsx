@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SECTIONS, LECONS, statsCurriculum } from "../data/curriculum.js";
-import { BADGES, getBadges, getApiKey, setApiKey, getWorkerUrl, setWorkerUrl, stClearAll, getTagStats } from "../lib/storage.js";
+import { BADGES, getBadges, getApiKey, setApiKey, getWorkerUrl, setWorkerUrl, stClearAll, getTagStats, unlockAllForTesting } from "../lib/storage.js";
 import { tagLabel } from "../data/tags.js";
 import { Btn } from "../components/ui.jsx";
 
@@ -31,6 +31,7 @@ export default function Profile({ progress, xp, streak, onReset, onTrainTag }) {
   const [worker, setWorker] = useState(getWorkerUrl());
   const [workerSaved, setWorkerSaved] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
+  const [confirmUnlock, setConfirmUnlock] = useState(false);
 
   const niveau = [...NIVEAUX].reverse().find((n) => xp >= n.seuil);
   const suivant = NIVEAUX.find((n) => n.seuil > xp);
@@ -213,6 +214,26 @@ export default function Profile({ progress, xp, streak, onReset, onTrainTag }) {
         ) : (
           <button onClick={() => setConfirmReset(true)} className="text-[13px] font-extrabold uppercase tracking-wide text-pat-coral">
             Réinitialiser ma progression
+          </button>
+        )}
+      </div>
+
+      <div className="mt-3 rounded-2xl border-2 border-pat-line bg-white p-4">
+        {confirmUnlock ? (
+          <div className="flex flex-col gap-2">
+            <p className="text-[13px] font-extrabold text-pat-brand">Débloquer tous les niveaux pour le test ? (À usage dev uniquement)</p>
+            <div className="flex gap-2">
+              <Btn color="#2563eb" shadow="#1e40af" className="flex-1 text-[13px]" onClick={() => { unlockAllForTesting(LECONS, SECTIONS); onReset(); setConfirmUnlock(false); }}>
+                Oui, débloquer
+              </Btn>
+              <Btn color="#e7e6f0" shadow="#cfccdd" textColor="#777" className="flex-1 text-[13px]" onClick={() => setConfirmUnlock(false)}>
+                Annuler
+              </Btn>
+            </div>
+          </div>
+        ) : (
+          <button onClick={() => setConfirmUnlock(true)} className="text-[13px] font-extrabold uppercase tracking-wide text-pat-brand">
+            Mode test — débloquer tous les niveaux
           </button>
         )}
       </div>
