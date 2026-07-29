@@ -196,7 +196,7 @@ Réponds UNIQUEMENT avec ce JSON : {"note": 0 à 5, "resume": "2 phrases de synt
         {debriefEnCours && <p className="pl-2 text-[13px] font-bold italic text-pat-muted">Le formateur analyse l'entretien…</p>}
         {erreur && <p className="rounded-xl bg-[#fde3e8] px-4 py-2 text-[13px] font-bold text-pat-coralDark">{erreur}</p>}
 
-        {debrief && <Debrief debrief={debrief} onQuit={onQuit} />}
+        {debrief && <Debrief debrief={debrief} scenario={scenario} onQuit={onQuit} />}
         <div ref={finRef} />
       </div>
 
@@ -221,7 +221,7 @@ Réponds UNIQUEMENT avec ce JSON : {"note": 0 à 5, "resume": "2 phrases de synt
   );
 }
 
-function Debrief({ debrief, onQuit }) {
+function Debrief({ debrief, scenario, onQuit }) {
   const note = debrief.note ?? 0;
   return (
     <div className="anim-pop mt-4 flex flex-col gap-3 rounded-3xl border-2 border-pat-line bg-white p-5">
@@ -250,9 +250,15 @@ function Debrief({ debrief, onQuit }) {
           </div>
         ))}
       </div>
-      {debrief.conseil_pro && (
+      {scenario?.recommandationFinale && (
         <div className="rounded-xl bg-[#e6e9fb] px-3 py-2.5">
-          <p className="text-[11px] font-extrabold uppercase tracking-widest text-pat-brandDark">Ce qu'un senior aurait fait</p>
+          <p className="text-[11px] font-extrabold uppercase tracking-widest text-pat-brandDark">Recommandation finale attendue</p>
+          <p className="text-[13px] font-semibold leading-snug text-pat-ink">{scenario.recommandationFinale}</p>
+        </div>
+      )}
+      {debrief.conseil_pro && (
+        <div className="rounded-xl bg-[#fdf0d5] px-3 py-2.5">
+          <p className="text-[11px] font-extrabold uppercase tracking-widest text-[#8a5d05]">Ce qu'un senior aurait fait</p>
           <p className="text-[13px] font-semibold leading-snug text-pat-ink">{debrief.conseil_pro}</p>
         </div>
       )}

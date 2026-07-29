@@ -28,6 +28,8 @@ export const SCENARIOS = [
       "Employer du jargon (UC, PFU, arbitrage) sans l'expliquer",
       "Oublier de vérifier son épargne de précaution et ses projets courts (elle envisage peut-être un achat immobilier)",
     ],
+    recommandationFinale:
+      "Vérifier d'abord qu'elle dispose d'une épargne de précaution suffisante (3 à 6 mois de charges) et qu'aucun projet à court terme n'existe, puis orienter le surplus vers une assurance-vie multisupport : une base en fonds euro sécurisé, complétée d'une petite poche d'unités de compte pour l'horizon long — jamais un produit dynamique proposé d'entrée sans découverte.",
   },
   {
     id: "sc2",
@@ -54,6 +56,8 @@ export const SCENARIOS = [
       "Le laisser imposer un cadre incompatible avec le devoir de conseil",
       "Rater l'énorme angle mort : rien n'est prévu pour protéger sa famille si l'entreprise ou lui-même font défaut",
     ],
+    recommandationFinale:
+      "Avant tout placement des 50 000 €, faire clarifier et séparer la trésorerie professionnelle de l'épargne personnelle réellement disponible, vérifier la protection de sa famille (prévoyance dirigeant, régime matrimonial) et l'organisation de l'entreprise en cas de coup dur — puis seulement ensuite proposer un placement sécurisé à horizon court/moyen pour la part personnelle libre.",
   },
   {
     id: "sc3",
@@ -80,6 +84,8 @@ export const SCENARIOS = [
       "La brusquer vers les UC sans traiter la blessure de 2008",
       "Oublier l'angle transmission (assurance-vie avant 70 ans pour sa fille : la fenêtre est ouverte)",
     ],
+    recommandationFinale:
+      "Expliquer le coût réel du « zéro risque » (rendement net d'inflation des livrets sur-dotés), puis proposer une diversification TRÈS progressive et limitée (majorité fonds euro, petite poche d'UC prudentes), compatible avec son horizon de 6 ans — et ouvrir sans tarder une assurance-vie à son nom avant ses 70 ans, sa fille comme bénéficiaire, pour profiter de l'abattement de 152 500 €.",
   },
   {
     id: "sc4",
@@ -106,6 +112,8 @@ export const SCENARIOS = [
       "Ignorer le PER alors que sa TMI à 41 % en fait le levier le plus efficace",
       "Le froisser frontalement en dénigrant son collègue",
     ],
+    recommandationFinale:
+      "Écarter le Pinel (dispositif éteint pour les nouveaux investissements depuis fin 2024) et recommander en priorité l'ouverture d'un PER, dont la déduction à 41 % de TMI est immédiatement plus efficace — un investissement immobilier locatif éventuel ne devant être envisagé qu'ensuite, et sur ses qualités intrinsèques, jamais sur sa seule carotte fiscale.",
   },
   {
     id: "sc5",
@@ -132,6 +140,8 @@ export const SCENARIOS = [
       "Proposer de tout donner (il a besoin de revenus et de sécurité)",
       "Dire qu'après 70 ans « tout est fichu » — le 757 B (30 500 € + gains exonérés) reste utile",
     ],
+    recommandationFinale:
+      "Agir avant ses 70 ans en ouvrant/alimentant une assurance-vie avec une partie de ses liquidités (152 500 € d'abattement par bénéficiaire), compléter par une donation avec réserve d'usufruit sur le locatif (il conserve les loyers) et un don familial de sommes d'argent (790 G) aux petits-enfants — en le rassurant : le démembrement transmet sans le priver de revenus ni de sécurité.",
   },
   {
     id: "sc6",
@@ -158,6 +168,8 @@ export const SCENARIOS = [
       "Présenter la SCI à l'IS comme « la solution magique » sans parler de la sortie (PV lourde, dividendes taxés)",
       "Rester sur l'immobilier et rater l'angle mort successoral du PACS",
     ],
+    recommandationFinale:
+      "L'orienter vers le LMNP au régime réel en l'alertant sur la réintégration des amortissements dans la plus-value depuis la réforme 2025 (ce qui nuance l'intérêt d'une SCI à l'IS sur la sortie) — et traiter en parallèle l'angle mort successoral : rédiger un testament ou une donation entre partenaires pacsés, faute de quoi son partenaire n'hériterait de rien.",
   },
   {
     id: "sc7",
@@ -184,6 +196,8 @@ export const SCENARIOS = [
       "Proposer un schéma qui entame la réserve de la fille aînée (conflit garanti)",
       "Esquiver l'émotionnel : ici, le technique ne passe que si l'affectif est entendu",
     ],
+    recommandationFinale:
+      "Corriger en urgence la clause bénéficiaire de l'assurance-vie de 200 000 € (actuellement au nom de l'ex-épouse) au profit de la nouvelle épouse, puis structurer l'équilibre familial avec une donation entre époux compatible avec la réserve de chaque enfant et une donation-partage anticipée entre les deux enfants, pour objectiver l'équité et désamorcer le sentiment d'injustice de la fille aînée.",
   },
   {
     id: "sc8",
@@ -210,5 +224,7 @@ export const SCENARIOS = [
       "Laisser passer une affirmation fiscale fausse par peur du conflit",
       "Dérouler un argumentaire produit — exactement ce qu'il reproche aux deux précédents",
     ],
+    recommandationFinale:
+      "Ne pas entrer dans la surenchère commerciale mais démontrer la valeur par un diagnostic complet et chiffré : qualification d'animation de la holding pour le Dutreil, exposition à l'IFI et pistes d'allègement, stratégie de retraite du libéral (PER Madelin, valorisation de la patientèle) — en corrigeant avec tact ses éventuelles approximations sur le CGI plutôt que de les laisser passer.",
   },
 ];
